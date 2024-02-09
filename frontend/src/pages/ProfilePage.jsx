@@ -1,18 +1,16 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import SearchBar from "../components/SearchBar";
 import ProfilePic from "../assets/pfp.png";
-import { FiEdit2 } from "react-icons/fi";
-import { FiX } from "react-icons/fi";
 import TeamDetails from "../components/TeamDetails";
 import ProfileCard from "../components/ProfileCard";
+import SearchBar from "../components/SearchBar";
 
-const Dashboard = () => {
+const ProfilePage = () => {
   return (
-    <div className="bg-green-100 min-h-screen">
+    <div>
       <Navbar />
-      <div className="flex gap-7">
-        <div className="bg-white ml-10 mt-10 rounded-xl w-1/4 flex flex-col items-center">
+      <div className="flex gap-7 bg-green-100 min-h-screen">
+        <div className="bg-white ml-10 mt-10 mb-10 rounded-xl w-1/4 flex flex-col items-center">
           <img
             src={ProfilePic}
             className="rounded-3xl"
@@ -39,19 +37,7 @@ const Dashboard = () => {
             <div>
               <TeamDetails />
               <TeamDetails />
-              
             </div>
-          </div>
-        </div>
-        <div className="mt-10 rounded-xl w-2/3">
-          <SearchBar />
-          <div className="grid grid-cols-3 gap-10 p-10">
-            <ProfileCard />
-            <ProfileCard />
-            <ProfileCard />
-            <ProfileCard />
-            <ProfileCard />
-            <ProfileCard />
           </div>
         </div>
       </div>
@@ -59,4 +45,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default ProfilePage;

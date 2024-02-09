@@ -8,14 +8,14 @@ const Landing = () => {
       <header className="bg-green-100 flex-grow flex items-center justify-center text-center p-10">
         <div>
           <h1 className="text-6xl mb-4">MatchMaker</h1>
-          <p className="text-2xl ">
+          <p className="text-2xl">
             We connect professionals to build their dream teams and accomplish
             projects together.
           </p>
           <p className="text-2xl mb-8">
-            professionals to build their dream teams and accomplish projects.
+            professionals to build their dream teams and accomplish projects
           </p>
-          <button className="bg-green-200 hover:bg-green-500 text-black font-bold py-2 px-4 rounded mt-4">
+          <button className="bg-green-900 hover:bg-green-500 text-white font-bold py-2 px-4 rounded mt-4 transition duration-500 ease-in-out">
             Get Started
           </button>
         </div>
