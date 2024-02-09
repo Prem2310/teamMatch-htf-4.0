@@ -1,4 +1,3 @@
-import './App.css'
 import io from 'socket.io-client'
 import { useEffect, useState, useRef } from 'react'
 
