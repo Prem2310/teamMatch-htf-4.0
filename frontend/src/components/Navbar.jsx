@@ -6,13 +6,13 @@ const Navbar = () => {
       <div className="flex justify-between p-5">
         <div>pfp</div>
         <div className="flex">
-          <p className="ml-10">Home</p>
-          <p className="ml-10">Vision</p>
-          <p className="ml-10">About Us</p>
+          <p className="ml-10 text-lg">Home</p>
+          <p className="ml-10 text-lg">Vision</p>
+          <p className="ml-10 text-lg">About Us</p>
         </div>
         <div className="flex">
-          <p className="ml-10">Sign Up</p>
-          <p className="ml-10">Log In</p>
+          <p className="ml-10 text-lg">Sign Up</p>
+          <p className="ml-10 text-lg">Log In</p>
         </div>
       </div>
       <div>
