@@ -2,8 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import ProfilePic from "../assets/pfp.png";
 import TeamDetails from "../components/TeamDetails";
-import ProfileCard from "../components/ProfileCard";
-import SearchBar from "../components/SearchBar";
+import AddSkills from "../components/AddSkills";
 
 const ProfilePage = () => {
   return (
@@ -39,6 +38,10 @@ const ProfilePage = () => {
               <TeamDetails />
             </div>
           </div>
+        </div>
+
+        <div className="mt-10 rounded-xl w-2/3 mx-10">
+          <AddSkills />
         </div>
       </div>
     </div>
