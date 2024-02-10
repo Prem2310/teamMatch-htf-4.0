@@ -31,19 +31,22 @@ const getLoggedInUser = require("./route/userOperation/getLoggedInUser");
 const createHackathon = require("./route/hackathons/createHackathon");
 const getAllHackathons = require("./route/hackathons/getAllHackathons");
 const getRoomCode = require("./route/chatOperations/getRoomCode");
+const saveChats = require("./route/chatOperations/saveChats")
+const getChats = require("./route/chatOperations/getChats")
 
 app.use("/signup", signup);
 app.use("/login", login);
-app.use("/allUsers", allUsers);
-app.use("/addFriend", addFriend);
-app.use("/addSkills", addSkills);
-app.use("/updateUser", updateUser);
-app.use("/removeFriend", removeFriend);
-app.use("/getUserById", getUserById);
-app.use("/getLoggedInUser", getLoggedInUser);
-app.use("/createHackathon", createHackathon);
-app.use("/getAllHackathons", getAllHackathons);
-app.use("/getRoomCode", getRoomCode);
+app.use("/allUsers",allUsers)
+app.use("/addFriend",addFriend)
+app.use("/addSkills",addSkills)
+app.use("/updateUser",updateUser)
+app.use("/removeFriend",removeFriend)
+app.use("/getUserById",getUserById)
+app.use("/getLoggedInUser",getLoggedInUser)
+app.use("/createHackathon",createHackathon)
+app.use("/getRoomCode",getRoomCode)
+app.use("/saveChats",saveChats)
+app.use("/getChats",getChats)
 
 const io = new Server(server, {
   cors: {
