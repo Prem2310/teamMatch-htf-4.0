@@ -1,6 +1,6 @@
-import React from "react";
 import Navbar from "../components/Navbar";
 import graphiics from "../assets/landing_graphics.png";
+import { Link } from "react-router-dom";
 
 const Landing = () => {
   return (
@@ -23,10 +23,11 @@ const Landing = () => {
             Match Maker streamlines the process of finding compatible team
             members and fostering collaboration among participants.
           </p>
-
-          <button className="bg-green-900 hover:bg-green-500 text-white font-bold py-2 px-4 rounded mt-4 transition duration-500 ease-in-out">
-            Get Started
-          </button>
+          <Link to="/login">
+            <button className="bg-green-900 hover:bg-green-500 text-white font-bold py-2 px-4 rounded mt-4 transition duration-500 ease-in-out">
+              Get Started
+            </button>
+          </Link>
         </div>
         <div>
           <img

@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import loginPic from "../assets/try3.png";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import login_graphics from "../assets/login_graphics.png";
 import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   async function login() {
     const response = await fetch("http://localhost:5000/login", {
@@ -16,8 +18,19 @@ export default function Login() {
       body: JSON.stringify({ email, password }),
     });
     const data = await response.json();
-    document.cookie = `LOGIN_INFO=${data.token}`;
-    console.log(data);
+
+    if (data.token) {
+      document.cookie = `LOGIN_INFO=${data.token}`;
+      const jwt = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("LOGIN_INFO"))
+        .split("=")[1];
+      if (jwt) {
+        navigate("/profile");
+      }
+    } else {
+      alert(data.message); // Show the error message returned from the server
+    }
   }
 
   return (
@@ -50,6 +63,13 @@ export default function Login() {
               className="border-2 border-black rounded-xl p-2 w-full mb-5"
               onChange={(e) => setPassword(e.target.value)}
             />
+            <Link to="/signup">
+              <p className="text-green-900 text-right">
+                Don't have an account?
+                <span className="text-black-900 font-semibold"> Sign Up</span>
+              </p>
+            </Link>
+
             <button
               onClick={login}
               className="bg-black text-white p-2 rounded-full w-full mt-5"
