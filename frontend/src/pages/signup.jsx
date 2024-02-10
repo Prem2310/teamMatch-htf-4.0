@@ -1,5 +1,5 @@
 import { useState } from "react";
-import loginPic from "../assets/try3.png";
+import loginPic from "../assets/signup_graphics.png";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -28,33 +28,22 @@ export default function Signup() {
 
   return (
     <div className="flex gap-10">
-      <motion.div
-        className="w-1/2 min-h-screen px-7 flex flex-col justify-center items-center"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
+      <div className="w-1/2 min-h-screen px-7 flex flex-col justify-center items-center">
         <h1 className="text-5xl font-bold text-black-700 mb-5 tracking-wide italic ">
           Match Maker OR What
         </h1>
         <h1 className="text-5xl font-light text-black-700 mb-5 tracking-wide">
           Let's find your team
         </h1>
-        <motion.img
-          src={loginPic}
-          alt="login"
-          className="w-72 h-72"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 5, repeat: Infinity, repeatDelay: 5 }}
-        />
-      </motion.div>
+        <img src={loginPic} alt="graphics" className="w-64 h-64" />
+      </div>
       <motion.div
         className="w-1/2 bg-green-100 flex justify-center items-center"
         initial={{ x: 200, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 50 }}
       >
-        <div className="flex flex-col w-1/2 -mt-24">
+        <div className="flex flex-col w-1/2 -mt-8">
           <h1 className="text-4xl font-semibold mb-5">REGISTER</h1>
           <input
             type="text"

@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 
@@ -10,13 +9,23 @@ const Navbar = () => {
           <img src={logo} alt="logo" className="h-6" />
         </div>
         <div className="flex">
-          <Link to="/" className="ml-10 text-lg hover:text-gray-400">Home</Link>
-          <Link to="/vision" className="ml-10 text-lg hover:text-gray-400">Vision</Link>
-          <Link to="/about" className="ml-10 text-lg hover:text-gray-400">About Us</Link>
+          <Link to="/" className="ml-10 text-lg hover:text-gray-400">
+            Home
+          </Link>
+          <Link to="/vision" className="ml-10 text-lg hover:text-gray-400">
+            Vision
+          </Link>
+          <Link to="/about" className="ml-10 text-lg hover:text-gray-400">
+            About Us
+          </Link>
         </div>
         <div className="flex">
-          <Link to="/signup" className="ml-10 text-lg hover:text-gray-400">Sign Up</Link>
-          <Link to="/login" className="ml-10 text-lg hover:text-gray-400">Log In</Link>
+          <Link to="/signup" className="ml-10 text-lg hover:text-gray-400">
+            Sign Up
+          </Link>
+          <Link to="/login" className="ml-10 text-lg hover:text-gray-400">
+            Log In
+          </Link>
         </div>
       </div>
       <div>

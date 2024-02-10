@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar";
 import graphiics from "../assets/landing_graphics.png";
 import { Link } from "react-router-dom";
+import Typist from "react-typist";
 
 const Landing = () => {
   return (
@@ -8,8 +9,10 @@ const Landing = () => {
       <Navbar />
       <header className="bg-green-100 flex-grow flex items-center justify-center  p-10">
         <div>
-          <h1 className="text-7xl mb-4   italic">Match Maker</h1>
-          <p className="text-xl mt-10 pr-10">
+          <Typist>
+            <h1 className="text-7xl mb-4   italic">Match Maker</h1>
+          </Typist>
+          <p className="text-xl mb-2">
             We connect professionals to build their dream teams and accomplish
             projects together.
           </p>
@@ -24,7 +27,7 @@ const Landing = () => {
             members and fostering collaboration among participants.
           </p>
           <Link to="/login">
-            <button className="bg-green-900 hover:bg-green-500 text-white font-bold py-2 px-4 rounded mt-4 transition duration-500 ease-in-out">
+            <button className="bg-green-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 transition duration-500 ease-in-out">
               Get Started
             </button>
           </Link>
