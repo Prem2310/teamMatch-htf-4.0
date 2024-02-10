@@ -1,7 +1,3 @@
-// write a code to add an array of skills based on username in mongodb
-//
-// Expected Output
-// code
 const express = require("express");
 const router = express.Router();
 const AllUsers = require("../models/users");
