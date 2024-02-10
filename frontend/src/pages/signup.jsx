@@ -7,6 +7,7 @@ export default function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState("");
   const navigate = useNavigate();
 
   async function signup() {
@@ -15,7 +16,7 @@ export default function Signup() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, email, password }),
+      body: JSON.stringify({ fullName, username, email, password }),
     });
     const data = await response.json();
 
@@ -45,6 +46,13 @@ export default function Signup() {
       >
         <div className="flex flex-col w-1/2 -mt-8">
           <h1 className="text-4xl font-semibold mb-5">REGISTER</h1>
+          <input
+            type="text"
+            placeholder="Full Name ..."
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            className="border-2 border-black rounded-xl p-2 w-full mb-5"
+          />
           <input
             type="text"
             placeholder="Username"

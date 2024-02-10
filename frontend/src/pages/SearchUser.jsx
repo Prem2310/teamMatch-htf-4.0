@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
-import ProfilePic from "../assets/pfp.png";
-import { FiEdit2 } from "react-icons/fi";
-import { FiX } from "react-icons/fi";
-import TeamDetails from "../components/TeamDetails";
+import { CiBookmarkPlus } from "react-icons/ci";
+import { CiBookmarkCheck } from "react-icons/ci";
 import ProfileCard from "../components/ProfileCard";
 import { Link } from "react-router-dom";
 
-const Dashboard = () => {
+export default function Dashboard() {
+
     const [hackathons, setHackathons] = useState([]);
-
     const [currUser, setCurrUser] = useState({});
-
     const [allUsers, setAllUsers] = useState([]);
+    const [selectedHackathon, setSelectedHackathon] = useState("");
 
     useEffect(() => {
         fetch("http://localhost:5000/getLoggedInUser", {
@@ -28,7 +26,7 @@ const Dashboard = () => {
         })
         .then((data) => {
             setCurrUser(data.user);
-            console.log(data);
+            console.log(data,"DATA");
         })
         .catch((err) => {
             console.log(err);
@@ -36,9 +34,12 @@ const Dashboard = () => {
 
         fetch("http://localhost:5000/getAllHackathons")
             .then((response) => response.json())
-            .then((data) => setHackathons(data));
+            .then((data) =>{
+                setHackathons(data);
+                console.log(data,"hackathons");
+            });
 
-        fetch("http://localhost:5000/getUsers", {
+        fetch("http://localhost:5000/allUsers", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -49,13 +50,36 @@ const Dashboard = () => {
         })
         .then((data) => {
             setAllUsers(data);
-            console.log(data);
+            console.log(data,"allUsers");
         })
         .catch((err) => {
             console.log(err);
         });
 
     }, []);
+
+    const addHackathonInterested = (e) => {
+
+        const currElement = e.target.parentElement.parentElement.children[0].innerText
+
+        fetch('http://localhost:5000/updateHackathons', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: currUser.username,
+                hackName: selectedHackathon.name
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
 
     return (
         <div className="bg-green-100 min-h-screen">
@@ -72,7 +96,12 @@ const Dashboard = () => {
                                 className="border-2 border-green-800 rounded-xl p-2 w-full mb-2"
                             >
                                 <Link to={hackathon.link} target="blank">
-                                    <h3 className="hover:text-green-900">{hackathon.name} </h3>
+                                    <div className="flex justify-between items-center">
+                                        <h3 className="hover:text-green-900">{hackathon.name} </h3>
+                                        <button onClick={addHackathonInterested}>
+                                            <CiBookmarkPlus size={20}/>
+                                        </button>
+                                    </div>
                                 </Link>
                             </div>
                         ))}
@@ -82,7 +111,8 @@ const Dashboard = () => {
                     <SearchBar />
                     <div className="grid grid-cols-3 gap-10 pt-10 ">
                         {allUsers.map((user, i) => (
-                            <ProfileCard user={user} key={i} />
+                            user.username !== currUser.username &&
+                            <ProfileCard user={user} currUser={currUser} key={i} />
                         ))}
                     </div>
                 </div>
@@ -91,4 +121,3 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;

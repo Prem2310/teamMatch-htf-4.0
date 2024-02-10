@@ -55,6 +55,7 @@ router.post("/", async (req, res) => {
                     username: req.body.username,
                     email: req.body.email,
                     password: hash,
+                    fullName: req.body.fullName
                 })
                 const token = createToken(new_user._id)
                 res.status(200).json({ message: new_user, token: token })

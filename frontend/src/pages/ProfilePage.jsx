@@ -102,6 +102,10 @@ export default function ProfilePage(){
 
     }
 
+    const logout = () => {
+        document.cookie = "LOGIN_INFO=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        navigate("/login");
+    }
 
     return (
         <div>
@@ -140,7 +144,7 @@ export default function ProfilePage(){
                             {/* Edit Profile */}
                         </button>
 
-                        <button className="bg-green-200 hover:bg-green-500 text-black font-bold py-2 px-4 rounded ml-5">
+                        <button className="bg-green-200 hover:bg-green-500 text-black font-bold py-2 px-4 rounded ml-5" onClick={logout}>
                             Log Out
                         </button>
                     </div>
