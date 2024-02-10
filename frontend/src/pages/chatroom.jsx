@@ -144,6 +144,11 @@ function App() {
         console.log("Selected")
     }
 
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    }
 
     return (
 
@@ -213,11 +218,8 @@ function App() {
                     </div>
                     <div className='w-full'>
                         <div className='fixed bottom-[8px] rounded-md h-fit bg-[#595959] w-[88.1%] p-2'>
-                            <input type="text" placeholder='Message...' className='border-2 p-2 m-2 border-black rounded-xl w-10/12' onChange={
-                                (e) => {
-                                    setMessage(e.target.value)
-                                }
-                            }/>
+                            <input type="text" placeholder='Message...' className='border-2 p-2 m-2 border-black rounded-xl w-10/12' 
+                            onChange={(e) => setMessage(e.target.value)} onKeyPress={handleKeyPress}/>
                             <button onClick={sendMessage} className='bg-blue-300 hover:bg-blue-600 p-3 rounded-xl w-1/12'>Send</button>
                         </div>
                     </div>
