@@ -45,14 +45,14 @@ const ProfilePage = () => {
             </button>
           </div>
 
-          <div>
+          {/* <div>
             <h1 className="text-2xl mt-10">Your Teams</h1>
 
             <div>
               <TeamDetails />
               <TeamDetails />
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="mt-10 rounded-xl w-2/3 mx-10">
