@@ -5,20 +5,19 @@ const router = express.Router();
 const Hackathon = require("../../models/hackathons");
 
 router.post("/", async (req, res) => {
-    try {
-        const { title, link, username } = req.body;
-        const hackathon = new Hackathon({
-            title,
-            link,
-            username
-        });
-        await hackathon.save();
-        res.status(200).json({ message: "Hackathon created" });
-    } catch (error) {
-        console.log(error);
-        res.status(400).json({ error: "server side error" });
-    }
-}
-);
+  try {
+    const { name, link, username } = req.body;
+    const hackathon = new Hackathon({
+      name,
+      link,
+      username,
+    });
+    await hackathon.save();
+    res.status(200).json({ message: "Hackathon created" });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ error: "server side error" });
+  }
+});
 
 module.exports = router;
