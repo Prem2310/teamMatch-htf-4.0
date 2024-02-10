@@ -7,7 +7,9 @@ import AddSkills from "../components/AddSkills";
 export default function ProfilePage(){
     const [showForm, setShowForm] = useState(false);
 
-    const [updatedDetails, setUpdatedDetails] = useState({name: "", description: ""});
+    const [updatedDetails, setUpdatedDetails] = useState({name: "", description: "",image: ""});
+    const [reader,setReader]=useState()
+
 
     const [hackathon, setHackathon] = useState({
         name: "",
@@ -46,6 +48,9 @@ export default function ProfilePage(){
         .catch((err) => {
             console.log(err);
         });
+
+        setReader(new FileReader());
+
         
     },[])
 
@@ -68,11 +73,22 @@ export default function ProfilePage(){
         });
     }
 
+    const uploadImage=(e)=>{
+        reader.onload=(e)=>{
+            setUpdatedDetails({...updatedDetails,image:e.target.result})
+        }
+        console.log(e.target.files[0],"file")
+        const f=e.target.files[0];
+        const check=reader.readAsDataURL(f);
+        console.log(check,"check")
+    }
+    
     const editDetails = () => {
         // You can replace this with your own logic to handle the form submission
         console.log("Edit details");
 
     }
+
 
     return (
         <div>
@@ -173,6 +189,13 @@ export default function ProfilePage(){
                                     setCurrUser({...updatedDetails, description: e.target.value})
                                 }
                             } ></textarea>
+
+                            <button className="border-2 border-black rounded-md bg-white">
+                                <input onChange={uploadImage} type="file" accept="image/*" />
+                                {/* <input type="file" id="files" className="hidden cursor-pointer" accept="image/*" onChange={uploadImage}/>
+                                <label for="files" className="cursor-pointer w-full">Add a profile pic ?</label> */}
+                            </button>
+
                             <button type="submit" className="bg-green-200 hover:bg-green-500 text-black font-bold py-2 px-4 rounded" onClick={saveDetails}>
                                 Save
                             </button>
