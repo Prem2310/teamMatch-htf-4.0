@@ -4,7 +4,10 @@ const Navbar = () => {
   return (
     <div className="bg-white">
       <div className="flex justify-between p-3 ">
-        <div> </div>
+        <div>
+          {" "}
+          <img src={logo} alt="logo" className="h-6" />
+        </div>
         <div className="flex">
           <p className="ml-10 text-lg hover:text-gray-400">Home</p>
           <p className="ml-10 text-lg hover:text-gray-400">Vision</p>
