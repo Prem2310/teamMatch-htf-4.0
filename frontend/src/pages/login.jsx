@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import login_graphics from "../assets/login_graphics.png";
-import Navbar from "../components/Navbar";
+
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -40,7 +40,6 @@ export default function Login() {
 
   return (
     <div>
-      <Navbar />
       <div className="flex gap-10 ">
         <div className="w-1/2 h-full min-h-screen px-7 flex flex-col mt-20">
           <h1 className="text-5xl font-bold text-black-700 mb-5 tracking-wide italic ">
