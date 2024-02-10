@@ -16,8 +16,7 @@ function App() {
 
     const msg = useRef()
 
-    const saveChats = () => {
-        const user1 = currUser.username
+    const saveChats = (user1, user2) => {
         fetch('http://localhost:5000/saveChats', {
             method: 'POST',
             headers: {
@@ -39,7 +38,7 @@ function App() {
 
     const sendMessage = () => {
 
-        saveChats(currUser.username)
+        saveChats(currUser.username, chatFriend)
 
         socket.emit("sendMessage", { message, roomCode})
         const container = document.createElement('div')
@@ -102,10 +101,15 @@ function App() {
 
     useEffect(() => {
         joinRoom()
+
         socket.on("recieveMessage", (data) => {
+
+            saveChats(chatFriend, currUser.username)
+
             setMessageRecieved(data.message)
             const container = document.createElement('div')
             container.className = 'flex justify-start max-w-4/6 '
+
 
             const recieve = document.createElement('h1')
             recieve.innerHTML = data.message
@@ -120,9 +124,6 @@ function App() {
         const jwt=document.cookie.split('; ').find(row => row.startsWith('LOGIN_INFO')).split('=')[1];
 
         getUser(jwt)
-
-
-
 
     }, [socket])
 
