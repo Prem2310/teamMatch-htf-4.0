@@ -63,19 +63,23 @@ export default function Login() {
               className="border-2 border-black rounded-xl p-2 w-full mb-5"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Link to="/signup">
-              <p className="text-green-900 text-right">
-                Don't have an account?
-                <span className="text-black-900 font-semibold"> Sign Up</span>
+
+            <Link>
+              <p className="text-black-700 text-sm mb-5">
+                Don't have an account?{" "}
+                <Link to="/signup" className="text-blue-500">
+                  Sign Up
+                </Link>
               </p>
             </Link>
-
-            <button
-              onClick={login}
-              className="bg-black text-white p-2 rounded-full w-full mt-5"
-            >
-              Submit
-            </button>
+            <Link to="/profile">
+              <button
+                onClick={login}
+                className="bg-black text-white p-2 rounded-full w-full mt-5"
+              >
+                Submit
+              </button>
+            </Link>
           </div>
         </div>
       </div>
