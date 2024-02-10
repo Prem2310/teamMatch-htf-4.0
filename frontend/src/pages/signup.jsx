@@ -1,5 +1,5 @@
 import { useState } from "react";
-import loginPic from "../assets/try3.png";
+import loginPic from "../assets/signupGraphics.png";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 
