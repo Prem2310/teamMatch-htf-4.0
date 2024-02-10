@@ -44,6 +44,9 @@ const Navbar = () => {
                     <Link to="/about" className="ml-10 text-lg hover:text-gray-400">
                         About Us
                     </Link>
+                    <Link to="/searchUser" className="ml-10 text-lg hover:text-gray-400">
+                        Peoples
+                    </Link>
                 </div>
                 <div className="flex">
                     {
