@@ -7,10 +7,10 @@ const socket = io('http://localhost:3000')
 function App() {
     const [message, setMessage] = useState("")
     const [messageRecieved, setMessageRecieved] = useState("")
-    const [roomCode, setRoomCode] = useState("devvrat")
+    const [roomCode, setRoomCode] = useState("")
     const [currUser, setCurrUser] = useState({})
     const [chatFriend, setChatFriend] = useState("")
-
+    const [chats, setChats] = useState([])
     const [friends, setFriends] = useState([])
 
 
@@ -53,7 +53,7 @@ function App() {
         console.log("Message sent")
     }
     
-    const joinRoom = () => {
+    const joinRoom = (roomCode) => {
         socket.emit("joinRoom", {roomCode : roomCode})
         console.log("Room joined",roomCode)
     }
@@ -80,7 +80,8 @@ function App() {
         })
     }
 
-    const getChats = ()=>{
+    const getChats = (roomCode)=>{
+        console.log(roomCode,"inside getChats roomcod")
         fetch('http://localhost:5000/getChats/' + roomCode, {
             method: 'GET',
             headers: {
@@ -90,17 +91,16 @@ function App() {
             return res.json()
         }
         ).then((data) => {
-            console.log(data,"friends")
+            setChats(data)
+            console.log(data,"chats")
         }
         ).catch((err) => {
             console.log(err)
         })
     }
     
-
-
     useEffect(() => {
-        joinRoom()
+        joinRoom(roomCode)
 
         socket.on("recieveMessage", (data) => {
 
@@ -130,18 +130,31 @@ function App() {
     const selectedUser = (e) => {
         e.preventDefault()
         const roomString = currUser.username < e.target.innerHTML ? currUser.username + e.target.innerHTML : e.target.innerHTML + currUser.username;
+        console.log(roomString,"roomtString")
+        
         setRoomCode(roomString)
+        joinRoom(roomString)
+
         setChatFriend(e.target.innerHTML)
-        getChats()
-        joinRoom()
+        getChats(roomString)
+
         console.log(roomString,"roomString")
         console.log(e.target.innerHTML)
         console.log("Selected")
     }
 
 
-  return (
+    return (
+
         <div className='p-2 bg-black h-screen flex gap-2'>
+            {
+                friends.length === 0 ? <div className='w-full h-full flex justify-center items-center '>
+                        <div className=' bg-white p-2 px-4 rounded-full text-2xl font-semibold'>
+                            Find Friends
+                            <FaArrowRightLong></FaArrowRightLong>
+                        </div>
+                    </div> : 
+                <>
             <div className='flex flex-col h-full w-fit rounded-md bg-[#595959] text-white text-opacity-90 opacity-85'>
                 {
                     friends.map((friend) => {
@@ -171,7 +184,28 @@ function App() {
                 <hr className='h-0 border-t-[1px] border-opacity-50 border-black'/>
                 <div className='h-[91%] '>
                     <div className='overflow-scroll flex flex-col gap-1 h-full p-2' ref={msg}>
-                        
+                        {
+                            chats.map((chat,i) => {
+                                return (
+                                    <div key={i}>
+                                    {
+                                        chat.sender === currUser.username ? 
+                                        <div className='flex justify-end max-w-4/6'>
+                                            <div className='bg-[#595959] p-2 rounded-xl max-w-4/6 text-pretty text-white '>
+                                                {chat.message}
+                                            </div>
+                                        </div>
+                                            : 
+                                        <div className='flex justify-start max-w-4/6'>
+                                            <div className='bg-[#595959] p-2 rounded-xl max-w-4/6 text-pretty text-white '>
+                                                {chat.message}
+                                            </div>
+                                        </div>
+                                    }
+                                    </div>
+                                )
+                            })
+                        }
                     </div>
                     <div className='w-full'>
                         <div className='fixed bottom-[8px] rounded-md h-fit bg-[#595959] w-[88.1%] p-2'>
@@ -185,24 +219,11 @@ function App() {
                     </div>
                 </div>
             </div>
+            </>
+
+            }
+
         </div>
-        // <div className='m-auto w-screen flex justify-center items-center h-screen'>
-        //     <div className='m-auto w-1/2 border-2 border-black rounded-xl p-4'>
-        //         <h1>Chatting</h1>
-
-        //         <input type="text" placeholder='Room Code...' className='border-2 rounded-xl border-black p-2 m-2' 
-        //         onChange={
-        //             (e) => {
-        //                 setRoomCode(e.target.value)
-        //             }
-        //         }/>
-        //         <button className='bg-blue-300 hover:bg-blue-600 p-3 rounded-xl'
-        //         onClick={joinRoom}>Join</button>
-        //         <br />
-
-
-        //     </div>
-        // </div>
     )
 }
 

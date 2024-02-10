@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
         }
         else{
             msg[0].messages.push({sender: user1, message: message});
-            await msg.save();
+            await msg[0].save();
             res.status(200).json({ message: "Message saved", msg : msg });
         }
 
