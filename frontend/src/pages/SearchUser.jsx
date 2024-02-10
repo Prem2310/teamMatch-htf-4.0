@@ -61,6 +61,7 @@ export default function Dashboard() {
     const addHackathonInterested = (e) => {
 
         const currElement = e.target.parentElement.parentElement.children[0].innerText
+        console.log(currElement,"curele")
 
         fetch('http://localhost:5000/updateHackathons', {
             method: 'POST',
@@ -69,7 +70,7 @@ export default function Dashboard() {
             },
             body: JSON.stringify({
                 username: currUser.username,
-                hackName: selectedHackathon.name
+                hackName: currElement
             })
         })
         .then(response => response.json())
@@ -95,14 +96,14 @@ export default function Dashboard() {
                                 key={i}
                                 className="border-2 border-green-800 rounded-xl p-2 w-full mb-2"
                             >
-                                <Link to={hackathon.link} target="blank">
                                     <div className="flex justify-between items-center">
-                                        <h3 className="hover:text-green-900">{hackathon.name} </h3>
+                                        <Link to={hackathon.link} target="blank">
+                                            <h3 className="hover:text-green-900">{hackathon.name} </h3>
+                                        </Link>
                                         <button onClick={addHackathonInterested}>
                                             <CiBookmarkPlus size={20}/>
                                         </button>
                                     </div>
-                                </Link>
                             </div>
                         ))}
                     </div>
