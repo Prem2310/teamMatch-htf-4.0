@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import loginPic from "../assets/try3.png";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
@@ -70,6 +71,8 @@ export default function Signup() {
             className="border-2 border-black rounded-xl p-2 w-full mb-5"
             onChange={(e) => setPassword(e.target.value)}
           />
+
+          <Link to="/login">Already have an account? Login</Link>
           <button
             onClick={signup}
             className="bg-black text-white p-2 rounded-full w-full mt-5"

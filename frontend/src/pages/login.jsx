@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import loginPic from "../assets/try3.png";
+// import loginPic from "../assets/try3.png";
+import { useState } from "react";
 import login_graphics from "../assets/login_graphics.png";
 import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -50,12 +51,14 @@ export default function Login() {
               className="border-2 border-black rounded-xl p-2 w-full mb-5"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button
-              onClick={login}
-              className="bg-black text-white p-2 rounded-full w-full mt-5"
-            >
-              Submit
-            </button>
+            <Link to="/profile">
+              <button
+                onClick={login}
+                className="bg-black text-white p-2 rounded-full w-full mt-5"
+              >
+                Submit
+              </button>
+            </Link>
           </div>
         </div>
       </div>
