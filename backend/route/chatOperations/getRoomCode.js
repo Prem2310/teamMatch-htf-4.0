@@ -3,7 +3,7 @@
 
 const express = require("express");
 const router = express.Router();
-const ChatRooms = require("../models/chatRooms");
+const ChatRooms = require("../../models/chatRooms");
 
 router.post("/", async (req, res) => {
     try {

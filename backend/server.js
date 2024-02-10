@@ -19,17 +19,17 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 
-const signup = require("./route/signup");
-const login = require("./route/login");
-const allUsers = require("./route/getUsers");
-const addFriend = require("./route/addFriend");
-const addSkills = require("./route/addSkills");
-const updateUser = require("./route/updateUser");
-const removeFriend = require("./route/removeFriend");
-const getUserById = require("./route/getUserById");
-const getLoggedInUser = require("./route/getLoggedInUser");
-const createHackathon = require("./route/createHackathon");
-const getRoomCode = require("./route/getRoomCode");
+const signup = require("./route/userOperation/signup");
+const login = require("./route/userOperation/login");
+const allUsers = require("./route/userOperation/getUsers");
+const addFriend = require("./route/userOperation/addFriend");
+const addSkills = require("./route/userOperation/addSkills");
+const updateUser = require("./route/userOperation/updateUser");
+const removeFriend = require("./route/userOperation/removeFriend");
+const getUserById = require("./route/userOperation/getUserById");
+const getLoggedInUser = require("./route/userOperation/getLoggedInUser");
+const createHackathon = require("./route/hackathons/createHackathon");
+const getRoomCode = require("./route/chatOperations/getRoomCode");
 
 app.use("/signup", signup);
 app.use("/login", login);

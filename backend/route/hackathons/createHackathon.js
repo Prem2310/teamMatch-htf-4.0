@@ -2,7 +2,7 @@
 // code
 const express = require("express");
 const router = express.Router();
-const Hackathon = require("../models/hackathons");
+const Hackathon = require("../../models/hackathons");
 
 router.post("/", async (req, res) => {
     try {

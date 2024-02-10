@@ -4,8 +4,8 @@
 // code
 const express = require("express");
 const router = express.Router();
-const AllUsers = require("../models/users");
-const ChatRooms = require("../models/chatRooms");
+const AllUsers = require("../../models/users");
+const ChatRooms = require("../../models/chatRooms");
 
 router.post("/", async (req, res) => {
     try {
