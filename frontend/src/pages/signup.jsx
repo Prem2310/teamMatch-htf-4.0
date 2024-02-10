@@ -1,12 +1,13 @@
 import { useState } from "react";
 import loginPic from "../assets/try3.png";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   async function signup() {
     const response = await fetch("http://localhost:5000/signup", {
@@ -17,7 +18,12 @@ export default function Signup() {
       body: JSON.stringify({ username, email, password }),
     });
     const data = await response.json();
-    console.log(data);
+
+    if (response.ok) {
+      navigate("/login");
+    } else {
+      alert(data.message); // Show the error message returned from the server
+    }
   }
 
   return (
