@@ -1,6 +1,7 @@
-import React from "react";
 import ProfilePic from "../assets/pfp.png";
-import { FiMessageSquare, FiUserPlus } from "react-icons/fi";
+import { FiUserPlus } from "react-icons/fi";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
+import { CiTwitter } from "react-icons/ci";
 
 const ProfileCard = () => {
   const skills = ["Javascript", "React", "Node"];
@@ -10,7 +11,7 @@ const ProfileCard = () => {
       <div className="flex flex-col items-center">
         <img
           src={ProfilePic}
-          className="rounded-full"
+          className="rounded-full border-2 border-green-800 "
           style={{ height: "100px" }}
           alt="Profile"
         />
@@ -20,18 +21,24 @@ const ProfileCard = () => {
         {skills.map((skill, index) => (
           <div
             key={index}
-            className="border-2 border-gray-300 rounded-3xl  text-center"
+            className="border-2 border-gray-300 rounded-3xl hover:border-gray-500 text-center"
           >
             {skill.length > 5 ? `${skill.substring(0, 5)}...` : skill}
           </div>
         ))}
       </div>
       <div className="mt-4 flex justify-between">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white rounded-xl p-2 px-3 flex items-center">
-          <FiUserPlus className="mr-2" /> Add to team
+        <button className="hover:bg-green-200 text-black rounded-full p-2 flex items-center">
+          <FiUserPlus />
         </button>
-        <button className="bg-green-500 hover:bg-green-700 text-white rounded-xl p-2 px-3 flex items-center">
-          <FiMessageSquare className="mr-2" /> Chat
+        <button className=" hover:bg-green-200 text-black rounded-full p-2 flex items-center">
+          <FaLinkedin />
+        </button>
+        <button className=" hover:bg-green-200 text-black rounded-full p-2 flex items-center">
+          <FaGithub />
+        </button>
+        <button className=" hover:bg-green-200 text-black rounded-full p-2  flex items-center">
+          <CiTwitter />
         </button>
       </div>
     </div>
