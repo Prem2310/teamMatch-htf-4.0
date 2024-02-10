@@ -8,7 +8,7 @@ const Landing = () => {
       <Navbar />
       <header className="bg-green-100 flex-grow flex items-center justify-center  p-10">
         <div>
-          <h1 className="text-6xl mb-4">MatchMaker</h1>
+          <h1 className="text-7xl mb-4   italic">Match Maker</h1>
           <p className="text-xl mt-10 pr-10">
             We connect professionals to build their dream teams and accomplish
             projects together.
@@ -39,7 +39,7 @@ const Landing = () => {
       </header>
 
       <section className="bg-white p-10">
-        <h2 className="text-4xl mb-4">Why Choose MatchMaker?</h2>
+        <h2 className="text-4xl mb-10 italic">Why Choose MatchMaker?</h2>
         <div className="flex gap-6">
           <div>
             <h3 className="text-3xl mb-2">Top-tier Teams</h3>
@@ -68,7 +68,7 @@ const Landing = () => {
           </div>
         </div>
       </section>
-      <footer className="bg-green-100 p-10 text-center">
+      <footer className="bg-green-100 p-4 text-center">
         <p>&copy; 2022 MatchMaker. All rights reserved.</p>
       </footer>
     </div>
