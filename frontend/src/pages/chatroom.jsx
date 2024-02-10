@@ -1,5 +1,6 @@
 import io from 'socket.io-client'
 import { useEffect, useState, useRef } from 'react'
+import { FaArrowRightLong } from "react-icons/fa6";
 
 const socket = io('http://localhost:3000')
 
@@ -8,19 +9,37 @@ function App() {
     const [messageRecieved, setMessageRecieved] = useState("")
     const [roomCode, setRoomCode] = useState("devvrat")
     const [currUser, setCurrUser] = useState({})
+    const [chatFriend, setChatFriend] = useState("")
 
     const [friends, setFriends] = useState([])
 
 
     const msg = useRef()
 
-    // const saveSentMessage = (message,username) => {
-    //     fetch('http://localhost:5000/chatOperations/room', {
+    const saveChats = () => {
+        const user1 = currUser.username
+        fetch('http://localhost:5000/saveChats', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ user1, user2, roomCode, message })
+        }).then((res) => {
+            return res.json()
+        }
+        ).then((data) => {
+            console.log(data)
+        }
+        ).catch((err) => {
+            console.log(err)
+        })
+
+    }
 
 
     const sendMessage = () => {
 
-        // saveSentMessage(message,currUser.username)
+        saveChats(currUser.username)
 
         socket.emit("sendMessage", { message, roomCode})
         const container = document.createElement('div')
@@ -28,7 +47,7 @@ function App() {
         
         const send = document.createElement('h1')
         send.innerHTML = message
-        send.className = 'bg-green-500 p-2 rounded-2xl rounded-br-none max-w-4/6 text-pretty '
+        send.className = 'bg-[#595959] p-2 rounded-xl max-w-4/6 text-pretty text-white '
  
         container.appendChild(send)
         msg.current.appendChild(container)
@@ -53,13 +72,30 @@ function App() {
         ).then((data) => {
             setCurrUser(data.user)
             setFriends(data.user.friends)
+            setChatFriend(data.user.friends[0])
             console.log(data.user,"user")
             console.log(data.user.friends,"friends")
         }
         ).catch((err) => {
             console.log(err)
+        })
+    }
+
+    const getChats = ()=>{
+        fetch('http://localhost:5000/getChats/' + roomCode, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then((res) => {
+            return res.json()
         }
-        )
+        ).then((data) => {
+            console.log(data,"friends")
+        }
+        ).catch((err) => {
+            console.log(err)
+        })
     }
     
 
@@ -73,7 +109,7 @@ function App() {
 
             const recieve = document.createElement('h1')
             recieve.innerHTML = data.message
-            recieve.className = 'bg-blue-500 p-2 rounded-2xl rounded-bl-none text-wrap'
+            recieve.className = 'bg-[#595959] text-white p-2 rounded-xl text-wrap'
 
             container.appendChild(recieve)
             msg.current.appendChild(container)
@@ -94,6 +130,8 @@ function App() {
         e.preventDefault()
         const roomString = currUser.username < e.target.innerHTML ? currUser.username + e.target.innerHTML : e.target.innerHTML + currUser.username;
         setRoomCode(roomString)
+        setChatFriend(e.target.innerHTML)
+        getChats()
         joinRoom()
         console.log(roomString,"roomString")
         console.log(e.target.innerHTML)
@@ -102,28 +140,48 @@ function App() {
 
 
   return (
-        <div className='p-2 bg-green-100 h-screen flex'>
-            <div className='flex flex-col h-full bg-blue-400 w-fit'>
+        <div className='p-2 bg-black h-screen flex gap-2'>
+            <div className='flex flex-col h-full w-fit rounded-md bg-[#595959] text-white text-opacity-90 opacity-85'>
                 {
                     friends.map((friend) => {
                         return (
-                            <div key={friend} className='p-2 bg-red-400 m-2 rounded-2xl px-10 hover:bg-red-600 cursor-pointer' onClick={selectedUser}>
-                                {friend}
+                            <div key={friend} >
+                                <div className='flex justify-between items-center hover:-translate-y-[2px] hover:translate-x-[2px] cursor-pointer'>
+                                    <div className='pl-2 m-2 rounded-2xl px-6 hover:bg-gray-400 cursor-pointer font-bricolage uppercase font-medium text-xl' onClick={selectedUser}>
+                                        {friend}
+                                        
+                                    </div>
+                                    <div className='pr-2'>
+                                    <FaArrowRightLong></FaArrowRightLong>
+                                    </div>
+                                </div>
+                                <hr className='h-0 border-t-2-[1px] border-black  border-opacity-40' />
                             </div>
                         )
                     })
                 }
             </div>
-            <div>
-                <input type="text" placeholder='Message...' className='border-2 p-2 m-2 border-black rounded-xl' onChange={
-                    (e) => {
-                        setMessage(e.target.value)
+            <div className='w-full rounded-md bg-gray-200 text-black'>
+                <div className='w-full p-2 px-3 uppercase font-medium'>
+                    {
+                        chatFriend
                     }
-                }/>
-                <button onClick={sendMessage} className='bg-blue-300 hover:bg-blue-600 p-3 rounded-xl'>Send</button>
-                <h1>Message</h1>
-                <div className='flex flex-col gap-1' ref={msg}>
-                    
+                </div>
+                <hr className='h-0 border-t-[1px] border-opacity-50 border-black'/>
+                <div className='h-[91%] '>
+                    <div className='overflow-scroll flex flex-col gap-1 h-full p-2' ref={msg}>
+                        
+                    </div>
+                    <div className='w-full'>
+                        <div className='fixed bottom-[8px] rounded-md h-fit bg-[#595959] w-[88.1%] p-2'>
+                            <input type="text" placeholder='Message...' className='border-2 p-2 m-2 border-black rounded-xl w-10/12' onChange={
+                                (e) => {
+                                    setMessage(e.target.value)
+                                }
+                            }/>
+                            <button onClick={sendMessage} className='bg-blue-300 hover:bg-blue-600 p-3 rounded-xl w-1/12'>Send</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

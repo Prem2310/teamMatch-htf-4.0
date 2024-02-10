@@ -30,6 +30,8 @@ const getUserById = require("./route/userOperation/getUserById");
 const getLoggedInUser = require("./route/userOperation/getLoggedInUser");
 const createHackathon = require("./route/hackathons/createHackathon");
 const getRoomCode = require("./route/chatOperations/getRoomCode");
+const saveChats = require("./route/chatOperations/saveChats")
+const getChats = require("./route/chatOperations/getChats")
 
 app.use("/signup", signup);
 app.use("/login", login);
@@ -42,7 +44,8 @@ app.use("/getUserById",getUserById)
 app.use("/getLoggedInUser",getLoggedInUser)
 app.use("/createHackathon",createHackathon)
 app.use("/getRoomCode",getRoomCode)
-
+app.use("/saveChats",saveChats)
+app.use("/getChats",getChats)
 
 const io = new Server(server, {
   cors: {
