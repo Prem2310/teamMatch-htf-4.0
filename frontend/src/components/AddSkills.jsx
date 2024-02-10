@@ -5,7 +5,7 @@ const AddSkills = () => {
   const [skills, setSkills] = useState([]);
 
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       event.preventDefault();
       if (skill && !skills.includes(skill)) {
         setSkills([...skills, skill]);
@@ -25,7 +25,7 @@ const AddSkills = () => {
           <div
             key={index}
             onClick={() => removeSkill(skill)}
-            className="p-2 bg-gray-200 rounded cursor-pointer"
+            className="p-2 border-2 border-black rounded-xl w-fit cursor-pointer"
           >
             {skill}
           </div>

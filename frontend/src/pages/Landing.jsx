@@ -1,27 +1,45 @@
 import React from "react";
 import Navbar from "../components/Navbar";
+import graphiics from "../assets/landing_graphics.png";
 
 const Landing = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <header className="bg-green-100 flex-grow flex items-center justify-center text-center p-10">
+      <header className="bg-green-100 flex-grow flex items-center justify-center  p-10">
         <div>
-          <h1 className="text-6xl mb-4">MatchMaker</h1>
-          <p className="text-2xl">
+          <h1 className="text-7xl mb-4   italic">Match Maker</h1>
+          <p className="text-xl mt-10 pr-10">
             We connect professionals to build their dream teams and accomplish
             projects together.
           </p>
-          <p className="text-2xl mb-8">
-            professionals to build their dream teams and accomplish projects
+          <p className="text-xl mb-2">
+            Professionals to build their dream teams and accomplish projects
           </p>
+          <p className="text-xl mb-2 ">
+            By leveraging advanced algorithms and intuitive user interfaces,
+          </p>
+          <p className="text-xl mb-8 ">
+            Match Maker streamlines the process of finding compatible team
+            members and fostering collaboration among participants.
+          </p>
+
           <button className="bg-green-900 hover:bg-green-500 text-white font-bold py-2 px-4 rounded mt-4 transition duration-500 ease-in-out">
             Get Started
           </button>
         </div>
+        <div>
+          <img
+            src={graphiics}
+            className=""
+            style={{ height: "300px" }}
+            alt="Graphics"
+          />
+        </div>
       </header>
+
       <section className="bg-white p-10">
-        <h2 className="text-4xl mb-4">Why Choose MatchMaker?</h2>
+        <h2 className="text-4xl mb-10 italic">Why Choose MatchMaker?</h2>
         <div className="flex gap-6">
           <div>
             <h3 className="text-3xl mb-2">Top-tier Teams</h3>
@@ -50,7 +68,7 @@ const Landing = () => {
           </div>
         </div>
       </section>
-      <footer className="bg-green-100 p-10 text-center">
+      <footer className="bg-green-100 p-4 text-center">
         <p>&copy; 2022 MatchMaker. All rights reserved.</p>
       </footer>
     </div>

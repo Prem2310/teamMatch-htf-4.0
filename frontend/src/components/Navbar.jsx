@@ -1,18 +1,18 @@
 import React from "react";
-
+import logo from "../assets/logo.png";
 const Navbar = () => {
   return (
     <div className="bg-white">
-      <div className="flex justify-between p-5">
-        <div>pfp</div>
+      <div className="flex justify-between p-3 ">
+        <div> </div>
         <div className="flex">
-          <p className="ml-10 text-lg">Home</p>
-          <p className="ml-10 text-lg">Vision</p>
-          <p className="ml-10 text-lg">About Us</p>
+          <p className="ml-10 text-lg hover:text-gray-400">Home</p>
+          <p className="ml-10 text-lg hover:text-gray-400">Vision</p>
+          <p className="ml-10 text-lg hover:text-gray-400">About Us</p>
         </div>
         <div className="flex">
-          <p className="ml-10 text-lg">Sign Up</p>
-          <p className="ml-10 text-lg">Log In</p>
+          <p className="ml-10 text-lg hover:text-gray-400">Sign Up</p>
+          <p className="ml-10 text-lg hover:text-gray-400">Log In</p>
         </div>
       </div>
       <div>
