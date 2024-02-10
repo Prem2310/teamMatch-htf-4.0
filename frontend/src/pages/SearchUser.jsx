@@ -23,15 +23,17 @@ const Dashboard = () => {
       <div className="flex gap-7">
         <div className="bg-white mt-10 ml-7 rounded-3xl w-1/3">
           <div className="p-5">
-            <h1 className="text-3xl font-bold tracking-wide">
+            <h1 className="text-2xl font-bold tracking-wide mb-8">
               Hey There! Browse Your Hackathons{" "}
             </h1>
-            {hackathons.map((hackathon,i) => (
-              <div key={i} className="border-2 border-black rounded-xl p-2 w-full mb-2">
-                <Link to={hackathon.link}>
-                    <h3>{hackathon.name} Hack This Fall</h3>
+            {hackathons.map((hackathon, i) => (
+              <div
+                key={i}
+                className="border-2 border-green-800 rounded-xl p-2 w-full mb-2"
+              >
+                <Link to={hackathon.link} target="blank">
+                  <h3 className="hover:text-green-900">{hackathon.name} </h3>
                 </Link>
-                <p>{hackathon.link} hackthisfall.org</p>
               </div>
             ))}
           </div>
