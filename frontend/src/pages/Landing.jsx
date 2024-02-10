@@ -2,15 +2,19 @@ import Navbar from "../components/Navbar";
 import graphiics from "../assets/landing_graphics.png";
 import { Link } from "react-router-dom";
 import Typist from "react-typist";
+import Vision from "../components/Vision";
 
 const Landing = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
+      {/* fix the navbar to the top */}
+      <div className="fixed w-full top-0 left-0">
+        <Navbar />
+      </div>
       <header className="bg-green-100 flex-grow flex items-center justify-center  p-10">
         <div>
           <Typist>
-            <h1 className="text-7xl mb-4   italic">Match Maker Or What</h1>
+            <h1 className="text-7xl mb-4 italic">Match Maker OR What </h1>
           </Typist>
           <p className="text-xl mb-2">
             We connect professionals to build their dream teams and accomplish
@@ -72,9 +76,7 @@ const Landing = () => {
           </div>
         </div>
       </section>
-      <footer className="bg-green-100 p-4 text-center">
-        <p>&copy; 2022 MatchMaker. All rights reserved.</p>
-      </footer>
+      <Vision />
     </div>
   );
 };

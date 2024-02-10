@@ -72,7 +72,35 @@ const Navbar = () => {
                 <hr className="dark:text-black-900" />
             </div>
         </div>
+<<<<<<< HEAD
     );
+=======
+        <div className="flex">
+        <a href="#home" className="ml-10 text-lg hover:text-gray-400">
+            Home
+          </a>
+          <a href="#vision" className="ml-10 text-lg hover:text-gray-400">
+            Vision
+          </a>
+          <a href="#about" className="ml-10 text-lg hover:text-gray-400">
+            About Us
+          </a>
+        </div>
+        <div className="flex">
+          <Link to="/signup" className="ml-10 text-lg hover:text-gray-400">
+            Sign Up
+          </Link>
+          <Link to="/login" className="ml-10 text-lg hover:text-gray-400">
+            Log In
+          </Link>
+        </div>
+      </div>
+      <div>
+        <hr className="dark:text-black-900" />
+      </div>
+    </div>
+  );
+>>>>>>> 9914280 (vision ho gayaaa)
 };
 
 export default Navbar;
