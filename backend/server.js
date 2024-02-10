@@ -28,6 +28,8 @@ const updateUser = require("./route/updateUser");
 const removeFriend = require("./route/removeFriend");
 const getUserById = require("./route/getUserById");
 const getLoggedInUser = require("./route/getLoggedInUser");
+const createHackathon = require("./route/createHackathon");
+const getRoomCode = require("./route/getRoomCode");
 
 app.use("/signup", signup);
 app.use("/login", login);
@@ -38,6 +40,8 @@ app.use("/updateUser",updateUser)
 app.use("/removeFriend",removeFriend)
 app.use("/getUserById",getUserById)
 app.use("/getLoggedInUser",getLoggedInUser)
+app.use("/createHackathon",createHackathon)
+app.use("/getRoomCode",getRoomCode)
 
 
 const io = new Server(server, {

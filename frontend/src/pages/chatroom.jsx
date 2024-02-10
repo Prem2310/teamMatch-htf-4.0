@@ -7,6 +7,10 @@ function App() {
     const [message, setMessage] = useState("")
     const [messageRecieved, setMessageRecieved] = useState("")
     const [roomCode, setRoomCode] = useState("devvrat")
+
+    const [friends, setFriends] = useState([])
+
+
     const msg = useRef()
 
     const sendMessage = () => {
@@ -28,17 +32,19 @@ function App() {
         console.log("Room joined")
     }
 
-    const getFriends = () => {
-        fetch('http://localhost:5000/allUsers', {
+    const getUser = (jwt) => {
+        fetch('http://localhost:5000/getLoggedInUser', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': jwt
             }
         }).then((res) => {
             return res.json()
         }
         ).then((data) => {
-            console.log(data)
+            setFriends(data.user.friends)
+            console.log(data.user.friends)
         }
         ).catch((err) => {
             console.log(err)
@@ -66,7 +72,9 @@ function App() {
 
 
         const jwt=document.cookie.split('; ').find(row => row.startsWith('LOGIN_INFO')).split('=')[1];
-        
+
+        getUser(jwt)
+
 
 
 
@@ -76,8 +84,16 @@ function App() {
 
   return (
         <div className='p-2 bg-green-100 h-screen'>
-            <div className='flex h-full bg-blue-400'>
-
+            <div className='flex flex-col h-full bg-blue-400 w-fit'>
+                {
+                    friends.map((friend) => {
+                        return (
+                            <div className='p-2 bg-red-400 m-2 rounded-2xl px-10' onClick={selectedUser}>
+                                {friend}
+                            </div>
+                        )
+                    })
+                }
             </div>
             <div>
 

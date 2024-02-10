@@ -6,4 +6,4 @@ const userSchema=new mongoose.Schema({
     interestedPeoples:[String]
 })
 
-module.exports=mongoose.model('Hackathons',userSchema)
+module.exports=mongoose.model('Hackathons',userSchema)  
