@@ -33,6 +33,7 @@ const getAllHackathons = require("./route/hackathons/getAllHackathons");
 const getRoomCode = require("./route/chatOperations/getRoomCode");
 const saveChats = require("./route/chatOperations/saveChats")
 const getChats = require("./route/chatOperations/getChats")
+const updateHackathons = require("./route/hackathons/updateHackathons");
 
 app.use("/signup", signup);
 app.use("/login", login);
@@ -48,6 +49,7 @@ app.use("/getAllHackathons",getAllHackathons)
 app.use("/getRoomCode",getRoomCode)
 app.use("/saveChats",saveChats)
 app.use("/getChats",getChats)
+app.use("/updateHackathons",updateHackathons)
 
 const io = new Server(server, {
   cors: {
