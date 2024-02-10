@@ -6,6 +6,7 @@ import { FiEdit2 } from "react-icons/fi";
 import { FiX } from "react-icons/fi";
 import TeamDetails from "../components/TeamDetails";
 import ProfileCard from "../components/ProfileCard";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const [hackathons, setHackathons] = useState([]);
@@ -25,9 +26,11 @@ const Dashboard = () => {
             <h1 className="text-3xl font-bold tracking-wide">
               Hey There! Browse Your Hackathons{" "}
             </h1>
-            {hackathons.map((hackathon) => (
-              <div key={hackathon.id} className="border-2 border-black bg-red-900 rounded-xl p-2 w-full mb-2">
-                <h3>{hackathon.name} Hack This Fall</h3>
+            {hackathons.map((hackathon,i) => (
+              <div key={i} className="border-2 border-black rounded-xl p-2 w-full mb-2">
+                <Link to={hackathon.link}>
+                    <h3>{hackathon.name} Hack This Fall</h3>
+                </Link>
                 <p>{hackathon.link} hackthisfall.org</p>
               </div>
             ))}

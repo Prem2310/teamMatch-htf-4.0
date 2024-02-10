@@ -1,6 +1,7 @@
 import io from 'socket.io-client'
 import { useEffect, useState, useRef } from 'react'
 import { FaArrowRightLong } from "react-icons/fa6";
+import { Link } from 'react-router-dom'
 
 const socket = io('http://localhost:3000')
 
@@ -149,10 +150,13 @@ function App() {
         <div className='p-2 bg-black h-screen flex gap-2'>
             {
                 friends.length === 0 ? <div className='w-full h-full flex justify-center items-center '>
-                        <div className=' bg-white p-2 px-4 rounded-full text-2xl font-semibold'>
+                    <Link to="/searchUser">
+                        <div className='flex items-center gap-6 hover:bg-gray-300 cursor-pointer bg-white p-2 px-4 rounded-full text-2xl font-semibold'>
                             Find Friends
-                            <FaArrowRightLong></FaArrowRightLong>
+                            
+                            <FaArrowRightLong ></FaArrowRightLong>
                         </div>
+                    </Link>
                     </div> : 
                 <>
             <div className='flex flex-col h-full w-fit rounded-md bg-[#595959] text-white text-opacity-90 opacity-85'>
