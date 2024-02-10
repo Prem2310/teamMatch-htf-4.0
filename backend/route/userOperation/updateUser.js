@@ -4,13 +4,20 @@ const AllUsers = require("../../models/users");
 
 router.post("/", async (req, res) => {
     try {
-        const { username, image, bio } = req.body;
-        console.log(username, image, bio, "username, image, bio")
+        const {username, bio, fullName, image} = req.body;
+        console.log(username, bio, fullName, "username, image, bio")
         const user = await AllUsers.findOne({ username: username });
 
         if (user) {
-            user.image = image;
-            user.bio = bio;
+            if (bio !== "") {
+                user.bio = bio;
+            }
+            if (image !== "") {
+                user.image = image;
+            }
+            if (fullName !== "") {
+                user.fullName = fullName;
+            }
             await user.save();
 
             res.status(200).json({ message: "User details updated" });

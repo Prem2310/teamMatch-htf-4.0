@@ -10,7 +10,7 @@ const Landing = () => {
       <header className="bg-green-100 flex-grow flex items-center justify-center  p-10">
         <div>
           <Typist>
-            <h1 className="text-7xl mb-4   italic">Match Maker</h1>
+            <h1 className="text-7xl mb-4   italic">Match Maker Or What</h1>
           </Typist>
           <p className="text-xl mb-2">
             We connect professionals to build their dream teams and accomplish

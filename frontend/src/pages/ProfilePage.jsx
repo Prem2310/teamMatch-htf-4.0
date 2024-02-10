@@ -3,13 +3,14 @@ import Navbar from "../components/Navbar";
 import ProfilePic from "../assets/pfp.png";
 import TeamDetails from "../components/TeamDetails";
 import AddSkills from "../components/AddSkills";
+import { useNavigate } from "react-router-dom";
 
 export default function ProfilePage(){
     const [showForm, setShowForm] = useState(false);
 
-    const [updatedDetails, setUpdatedDetails] = useState({name: "", description: "",image: ""});
-    const [reader,setReader]=useState()
 
+    const [updatedDetails, setUpdatedDetails] = useState({fullName: "", description: "",image: ""});
+    const [reader,setReader]=useState()
 
     const [hackathon, setHackathon] = useState({
         name: "",
@@ -20,6 +21,7 @@ export default function ProfilePage(){
 
     const [currUser, setCurrUser] = useState({})
 
+    const navigate = useNavigate();
 
     const handleInputChange = (event) => {
         setHackathon({ ...hackathon, [event.target.name]: event.target.value });
@@ -55,17 +57,26 @@ export default function ProfilePage(){
     },[])
 
     const saveDetails = () => {
+        console.log(updatedDetails,"updatedDetails")
         fetch("http://localhost:5000/updateUser", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(updatedDetails),
+            body: JSON.stringify({
+                username: currUser.username,
+                image: updatedDetails.image,    
+                bio: updatedDetails.description,
+                fullName: updatedDetails.fullName,
+            }),
         })
         .then((res) => {
             return res.json();
         })
         .then((data) => {
+            // navigate("/profile");
+            window.location.reload();
+
             console.log(data);
         })
         .catch((err) => {
@@ -77,15 +88,17 @@ export default function ProfilePage(){
         reader.onload=(e)=>{
             setUpdatedDetails({...updatedDetails,image:e.target.result})
         }
-        console.log(e.target.files[0],"file")
+        // console.log(e.target.files[0],"file")
         const f=e.target.files[0];
         const check=reader.readAsDataURL(f);
         console.log(check,"check")
     }
-    
+    const [edit, setEdit] = useState(false)
     const editDetails = () => {
+        setEdit(!edit)
+
         // You can replace this with your own logic to handle the form submission
-        console.log("Edit details");
+        console.log(edit,"Edit details");
 
     }
 
@@ -93,26 +106,38 @@ export default function ProfilePage(){
     return (
         <div>
             <Navbar />
-            <div className="flex gap-7 bg-green-100 min-h-screen">
-                <div className="bg-white ml-10 mt-10 mb-10 rounded-xl w-1/4 flex flex-col items-center">
-                    <img
+            <div className="flex gap-7 bg-green-100 min-h-screen p-5">
+                <div className="bg-white p-2 rounded-xl w-1/4 flex flex-col items-center">
+                    <div className="h-44 object-contain">
+                    {
+                        currUser.image ? <img
+                        src={currUser.image}
+                        className="cursor-pointer rounded-full h-44 "
+
+                        alt="Profile"
+                        /> :
+                        <img
                         src={ProfilePic}
                         className="rounded-3xl cursor-pointer"
                         style={{ height: "250px" }}
                         alt="Profile"
-                        // onClick={}
-                    />
+                        />
+                    }
+                    </div>
                     {
-                        currUser.name ? <h1 className="text-3xl font-bold tracking-wide">{currUser.name}</h1> : <h1 className="text-3xl font-bold tracking-wide">Update Name...</h1>
+                        currUser.fullName ? <h1 className="text-3xl font-bold tracking-wide">{currUser.fullName}</h1> : <h1 className="text-3xl font-bold tracking-wide">Update Name...</h1>
                     }
                     <p className="mt-2 text-lg">{currUser.email}</p>
                     {
-                        currUser.description ? <p className="mt-2 text-lg">{currUser.description}</p> : <p className="mt-2 text-lg">Update Bio...</p>
+                        currUser.bio ? <p className="mt-2 text-lg">{currUser.bio}</p> : <p className="mt-2 text-lg">Update Bio...</p>
                     }
 
                     <div className="mt-5">
                         <button className="bg-green-200 hover:bg-green-500 text-black font-bold py-2 px-4 rounded" onClick={editDetails}>
-                            Edit Profile
+                            {
+                                edit ? "Done" : "Edit Profile"
+                            }
+                            {/* Edit Profile */}
                         </button>
 
                         <button className="bg-green-200 hover:bg-green-500 text-black font-bold py-2 px-4 rounded ml-5">
@@ -176,17 +201,17 @@ export default function ProfilePage(){
                         )}
                     </div>
                     {
-                        editDetails && 
+                        edit && 
                         <div className="mt-10 border-2 rounded-xl p-4 w-fit flex flex-col gap-2">
                             <input type="text" className="border-2 border-black p-2 rounded-full" placeholder="New Name..." onChange={
                                 (e) => {
-                                    setCurrUser({...updatedDetails, name: e.target.value})
+                                    setUpdatedDetails({...updatedDetails, fullName: e.target.value})
                                 }
                             }/>
                             {/* <input type="textarea" className="border-2 border-black p-2 rounded-full" placeholder="New Name..."/> */}
                             <textarea name="" id="" cols="30" rows="10" className="border-2 border-black p-2 rounded-xl" onChange={
                                 (e) => {
-                                    setCurrUser({...updatedDetails, description: e.target.value})
+                                    setUpdatedDetails({...updatedDetails, description: e.target.value})
                                 }
                             } ></textarea>
 
