@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import login_graphics from "../assets/login_graphics.png";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -37,7 +38,7 @@ export default function Login() {
     <div>
       <Navbar />
       <div className="flex gap-10 ">
-        <div className="w-2/3 h-full min-h-screen px-7 flex flex-col mt-20">
+        <div className="w-1/2 h-full min-h-screen px-7 flex flex-col mt-20">
           <h1 className="text-5xl font-bold text-black-700 mb-5 tracking-wide italic ">
             Match Maker OR What
           </h1>
@@ -46,8 +47,14 @@ export default function Login() {
           </h1>
           <img src={login_graphics} alt="login" className="w-96 m-auto mt-10" />
         </div>
-        <div className="w-1/2  bg-green-100 flex p-10 justify-center  ">
-          <div className="flex flex-col w-full ">
+
+        <motion.div
+          initial={{ x: 200, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 50 }}
+          className="w-1/2  bg-green-100 flex p-10 justify-center  "
+        >
+          <div className="flex flex-col w-full ml-20 mr-20 ">
             <h1 className="text-4xl font-semibold mb-5 mt-10">LOGIN</h1>
             <input
               type="text"
@@ -77,7 +84,7 @@ export default function Login() {
               Submit
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
