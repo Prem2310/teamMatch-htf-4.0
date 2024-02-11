@@ -24,7 +24,7 @@ const Landing = () => {
             projects together.
           </p>
           <p className="text-xl mb-2">
-            Professionals to build their dream teams and accomplish projects
+            Streamlines the process of finding compatible team members.
           </p>
           <p className="text-xl mb-2 ">
             By leveraging advanced algorithms and intuitive user interfaces,
