@@ -11,7 +11,7 @@ const Landing = () => {
       <div className="fixed w-full top-0 left-0">
         <Navbar />
       </div>
-      <header className="bg-green-100 flex-grow flex items-center justify-center  p-10">
+      <header className="bg-green-100 flex-grow flex items-center justify-center mt-10 p-10">
         <div>
           <Typist>
             <h1 className="text-7xl mb-4 italic">Match Maker OR What </h1>
@@ -31,7 +31,7 @@ const Landing = () => {
             members and fostering collaboration among participants.
           </p>
           <Link to="/login">
-            <button className="bg-green-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 transition duration-500 ease-in-out">
+            <button className="bg-green-900 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4 transition duration-500 ease-in-out">
               Get Started
             </button>
           </Link>

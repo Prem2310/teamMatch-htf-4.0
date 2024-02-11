@@ -9,7 +9,7 @@ const Navbar = () => {
           <img src={logo} alt="logo" className="h-6" />
         </div>
         <div className="flex">
-        <a href="#home" className="ml-10 text-lg hover:text-gray-400">
+          <a href="/" className="ml-10 text-lg hover:text-gray-400">
             Home
           </a>
           <a href="#vision" className="ml-10 text-lg hover:text-gray-400">
