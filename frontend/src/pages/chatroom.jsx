@@ -2,8 +2,9 @@ import io from 'socket.io-client'
 import { useEffect, useState, useRef } from 'react'
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from 'react-router-dom'
+import Navbar from '../components/Navbar'
 
-const socket = io('https://web-socket-server-02l2.onrender.com/')
+const socket = io('http://localhost:3000')
 
 function App() {
     const [message, setMessage] = useState("")
@@ -151,8 +152,10 @@ function App() {
     }
 
     return (
+        <div>
 
         <div className='p-2 bg-black h-screen flex gap-2'>
+            {/* <Navbar></Navbar> */}
             {
                 friends.length === 0 ? <div className='w-full h-full flex justify-center items-center '>
                     <Link to="/searchUser">
@@ -185,10 +188,15 @@ function App() {
                 }
             </div>
             <div className='w-full rounded-md bg-gray-200 text-black'>
-                <div className='w-full p-2 px-3 uppercase font-medium'>
+                <div className='w-full p-2 px-3 uppercase font-medium flex justify-between'>
                     {
                         chatFriend
                     }
+                    <Link to="/">
+                    <div >
+                        Home
+                    </div>
+                    </Link>
                 </div>
                 <hr className='h-0 border-t-[1px] border-opacity-50 border-black'/>
                 <div className='h-[91%] '>
@@ -228,6 +236,7 @@ function App() {
             </>
 
             }
+        </div>
 
         </div>
     )
