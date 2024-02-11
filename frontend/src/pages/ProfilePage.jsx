@@ -111,157 +111,139 @@ export default function ProfilePage() {
     navigate("/login");
   };
 
-  return (
-    <div>
-      <Navbar />
-      <div className="flex gap-7 bg-green-100 min-h-screen p-5">
-        <div className="bg-white p-2 rounded-xl w-1/4 flex flex-col items-center">
-          <div className="h-44 object-contain">
-            {currUser.image ? (
-              <img
-                src={currUser.image}
-                className="cursor-pointer rounded-full h-44 "
-                alt="Profile"
-              />
-            ) : (
-              <img
-                src={ProfilePic}
-                className="rounded-3xl cursor-pointer "
-                style={{ height: "250px" }}
-                alt="Profile"
-              />
-            )}
-          </div>
-          {currUser.fullName ? (
-            <h1 className="text-3xl font-bold tracking-wide">
-              {currUser.fullName}
-            </h1>
-          ) : (
-            <h1 className="text-3xl font-bold tracking-wide">Update Name...</h1>
-          )}
-          <p className="mt-2 text-lg">{currUser.email}</p>
-          {currUser.bio ? (
-            <p className="mt-2 text-lg">{currUser.bio}</p>
-          ) : (
-            <p className="mt-2 text-lg">Update Bio...</p>
-          )}
+//   return (
+    const createHackathon = () => {
+        fetch("http://localhost:5000/createHackathon", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username: currUser.username,
+                name: hackathon.name,
+                link: hackathon.website,
+            }),
+        })
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            console.log(data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
 
-          <div className="mt-5">
-            <button
-              className="bg-green-200 hover:bg-green-500 text-black font-bold py-2 px-4 rounded"
-              onClick={editDetails}
-            >
-              {edit ? "Done" : "Edit Profile"}
-              {/* Edit Profile */}
-            </button>
+    return (
+        <div>
+            <Navbar />
+            <div className="flex gap-7 bg-green-100 min-h-screen p-5">
+                <div className="bg-white p-2 rounded-xl w-1/4 flex flex-col items-center">
+                    <div className="h-44 object-contain">
+                    {
+                        currUser.image ? <img
+                        src={currUser.image}
+                        className="cursor-pointer rounded-full h-44 "
 
-            <button
-              className="bg-green-200 hover:bg-green-500 text-black font-bold py-2 px-4 rounded ml-5"
-              onClick={logout}
-            >
-              Log Out
-            </button>
-          </div>
-        </div>
+                        alt="Profile"
+                        /> :
+                        <img
+                        src={ProfilePic}
+                        className="rounded-3xl cursor-pointer"
+                        style={{ height: "250px" }}
+                        alt="Profile"
+                        />
+                    }
+                    </div>
+                    <h1 className="text-3xl font-bold tracking-wide">{currUser.fullName}</h1> 
+                    <p className="mt-2 text-lg">{currUser.email}</p>
+                    {
+                        currUser.bio ? <p className="mt-2 text-lg">{currUser.bio}</p> : <p className="mt-2 text-lg">Update Bio...</p>
+                    }
 
-        <div className="mt-10 rounded-xl w-2/3 mx-10">
-          <AddSkills />
-          {/* New hackathon section */}
-          <div className="mt-4">
-            <button
-              className="bg-green-900 hover:bg-green-700 text-white rounded-xl p-2 px-3"
-              onClick={() => setShowForm(!showForm)}
-            >
-              New Hackathon
-            </button>
-            {showForm && (
-              <form onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                  value={hackathon.name}
-                  onChange={handleInputChange}
-                  className="border-2 border-black rounded-xl p-2 w-full mb-2 mt-7"
-                />
-                <input
-                  type="text"
-                  name="website"
-                  placeholder="Website"
-                  value={hackathon.website}
-                  onChange={handleInputChange}
-                  className="border-2 border-black rounded-xl p-2 w-full mb-2"
-                />
-                <input
-                  type="text"
-                  name="venue"
-                  placeholder="Venue"
-                  value={hackathon.venue}
-                  onChange={handleInputChange}
-                  className="border-2 border-black rounded-xl p-2 w-full mb-2"
-                />
-                <input
-                  type="number"
-                  name="teamSize"
-                  placeholder="Number of members per team"
-                  value={hackathon.teamSize}
-                  onChange={handleInputChange}
-                  className="border-2 border-black rounded-xl p-2 w-full mb-2"
-                />
-                <button
-                  type="submit"
-                  className="bg-blue-500 hover:bg-blue-700 text-white rounded-xl p-2 px-3 mt-2"
-                >
-                  Submit Hackathon
-                </button>
-              </form>
-            )}
-          </div>
-          {edit && (
-            <div className="mt-10 border-2 rounded-xl p-4 w-fit flex flex-col gap-2">
-              <input
-                type="text"
-                className="border-2 border-black p-2 rounded-full"
-                placeholder="New Name..."
-                onChange={(e) => {
-                  setUpdatedDetails({
-                    ...updatedDetails,
-                    fullName: e.target.value,
-                  });
-                }}
-              />
-              {/* <input type="textarea" className="border-2 border-black p-2 rounded-full" placeholder="New Name..."/> */}
-              <textarea
-                name=""
-                id=""
-                cols="30"
-                rows="10"
-                className="border-2 border-black p-2 rounded-xl"
-                onChange={(e) => {
-                  setUpdatedDetails({
-                    ...updatedDetails,
-                    description: e.target.value,
-                  });
-                }}
-              ></textarea>
+                    <div className="mt-5">
+                        <button className="bg-green-200 hover:bg-green-500 text-black font-bold py-2 px-4 rounded" onClick={editDetails}>
+                            {
+                                edit ? "Done" : "Edit Profile"
+                            }
+                            {/* Edit Profile */}
+                        </button>
 
-              <button className="border-2 border-black rounded-md bg-white">
-                <input onChange={uploadImage} type="file" accept="image/*" />
-                {/* <input type="file" id="files" className="hidden cursor-pointer" accept="image/*" onChange={uploadImage}/>
+                        <button className="bg-green-200 hover:bg-green-500 text-black font-bold py-2 px-4 rounded ml-5" onClick={logout}>
+                            Log Out
+                        </button>
+                    </div>
+
+                </div>
+
+                <div className="mt-10 rounded-xl w-2/3 mx-10">
+                    <AddSkills user={currUser}/>
+                    {/* New hackathon section */}
+                    <div className="mt-4">
+                        <button
+                            className="bg-green-900 hover:bg-green-700 text-white rounded-xl p-2 px-3"
+                            onClick={() => setShowForm(!showForm)}
+                        >
+                            New Hackathon
+                        </button>
+                        {showForm && (
+                            <form onSubmit={handleSubmit}>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    placeholder="Name"
+                                    value={hackathon.name}
+                                    onChange={handleInputChange}
+                                    className="border-2 border-black rounded-xl p-2 w-full mb-2 mt-7"
+                                />
+                                <input
+                                    type="text"
+                                    name="website"
+                                    placeholder="Website"
+                                    value={hackathon.website}
+                                    onChange={handleInputChange}
+                                    className="border-2 border-black rounded-xl p-2 w-full mb-2"
+                                />
+                                <button
+                                    type="submit"
+                                    className="bg-blue-500 hover:bg-blue-700 text-white rounded-xl p-2 px-3 mt-2"
+                                    onClick={createHackathon}
+                                >
+                                    Submit Hackathon
+                                </button>
+                            </form>
+                        )}
+                    </div>
+                    {
+                        edit && 
+                        <div className="mt-10 border-2 rounded-xl p-4 w-fit flex flex-col gap-2">
+                            <input type="text" className="border-2 border-black p-2 rounded-full" placeholder="New Name..." onChange={
+                                (e) => {
+                                    setUpdatedDetails({...updatedDetails, fullName: e.target.value})
+                                }
+                            }/>
+                            {/* <input type="textarea" className="border-2 border-black p-2 rounded-full" placeholder="New Name..."/> */}
+                            <textarea name="" id="" cols="30" rows="10" className="border-2 border-black p-2 rounded-xl" onChange={
+                                (e) => {
+                                    setUpdatedDetails({...updatedDetails, description: e.target.value})
+                                }
+                            } ></textarea>
+
+                            <button className="border-2 border-black rounded-md bg-white">
+                                <input onChange={uploadImage} type="file" accept="image/*" />
+                                {/* <input type="file" id="files" className="hidden cursor-pointer" accept="image/*" onChange={uploadImage}/>
                                 <label for="files" className="cursor-pointer w-full">Add a profile pic ?</label> */}
-              </button>
+                            </button>
 
-              <button
-                type="submit"
-                className="bg-green-200 hover:bg-green-500 text-black font-bold py-2 px-4 rounded"
-                onClick={saveDetails}
-              >
-                Save
-              </button>
+                            <button type="submit" className="bg-green-200 hover:bg-green-500 text-black font-bold py-2 px-4 rounded" onClick={saveDetails}>
+                                Save
+                            </button>
+                        </div>
+                    }
+                </div>
             </div>
-          )}
         </div>
-      </div>
-    </div>
+
   );
 }
