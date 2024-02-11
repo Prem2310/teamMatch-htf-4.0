@@ -4,7 +4,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 
-const socket = io('http://localhost:3000')
+const socket = io('https://web-socket-server-02l2.onrender.com/')
 
 function App() {
     const [message, setMessage] = useState("")
@@ -19,7 +19,7 @@ function App() {
     const msg = useRef()
 
     const saveChats = (user1, user2) => {
-        fetch('http://localhost:5000/saveChats', {
+        fetch('https://teammatch-backend.onrender.com/saveChats', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -61,7 +61,7 @@ function App() {
     }
 
     const getUser = (jwt) => {
-        fetch('http://localhost:5000/getLoggedInUser', {
+        fetch('https://teammatch-backend.onrender.com/getLoggedInUser', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ function App() {
 
     const getChats = (roomCode)=>{
         console.log(roomCode,"inside getChats roomcod")
-        fetch('http://localhost:5000/getChats/' + roomCode, {
+        fetch('https://teammatch-backend.onrender.com/getChats/' + roomCode, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

@@ -51,28 +51,28 @@ app.use("/saveChats",saveChats)
 app.use("/getChats",getChats)
 app.use("/updateHackathons",updateHackathons)
 
-const io = new Server(server, {
-  cors: {
-    origin: "*",
-  },
-});
+// const io = new Server(server, {
+//   cors: {
+//     origin: "*",
+//   },
+// });
 
-io.on("connection", (socket) => {
-  console.log("a user connected:", socket.id);
+// io.on("connection", (socket) => {
+//   console.log("a user connected:", socket.id);
 
-  socket.on("joinRoom", (data) => {
-    socket.join(data.roomCode);
-    console.log("joined room", data.roomCode);
-  });
+//   socket.on("joinRoom", (data) => {
+//     socket.join(data.roomCode);
+//     console.log("joined room", data.roomCode);
+//   });
 
-  socket.on("sendMessage", (data) => {
-    socket.to(data.roomCode).emit("recieveMessage", data);
-  });
-});
+//   socket.on("sendMessage", (data) => {
+//     socket.to(data.roomCode).emit("recieveMessage", data);
+//   });
+// });
 
-server.listen(3000, async () => {
-  console.log("Server is running on port 3000");
-});
+// server.listen(3000, async () => {
+//   console.log("Server is running on port 3000");
+// });
 
 const start = async () => {
   try {

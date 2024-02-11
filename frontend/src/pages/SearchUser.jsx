@@ -16,7 +16,7 @@ export default function Dashboard() {
     const [filteredUsers, setFilteredUsers] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:5000/getLoggedInUser", {
+        fetch("https://teammatch-backend.onrender.com/getLoggedInUser", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -34,14 +34,14 @@ export default function Dashboard() {
                 console.log(err);
             });
 
-        fetch("http://localhost:5000/getAllHackathons")
+        fetch("https://teammatch-backend.onrender.com/getAllHackathons")
             .then((response) => response.json())
             .then((data) => {
                 setHackathons(data);
                 // console.log(data, "hackathons");
             });
 
-        fetch("http://localhost:5000/allUsers", {
+        fetch("https://teammatch-backend.onrender.com/allUsers", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -67,7 +67,7 @@ export default function Dashboard() {
         const currElement = e.target.parentElement.parentElement.children[0].innerText
         // console.log(currElement, "curele")
 
-        fetch('http://localhost:5000/updateHackathons', {
+        fetch('https://teammatch-backend.onrender.com/updateHackathons', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

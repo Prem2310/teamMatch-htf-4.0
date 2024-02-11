@@ -18,7 +18,7 @@ const ProfileCard = ({ user,currUser }) => {
         console.log(currElement,"curele")
         console.log(currUser.username,"currUser")
 
-        fetch('http://localhost:5000/addFriend', {
+        fetch('https://teammatch-backend.onrender.com/addFriend', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

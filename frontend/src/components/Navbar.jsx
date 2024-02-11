@@ -9,7 +9,7 @@ const Navbar = () => {
     try{
         const jwt = document.cookie.split("; ").find((row) => row.startsWith("LOGIN_INFO")).split("=")[1];
 
-        fetch("http://localhost:5000/getLoggedInUser", {
+        fetch("https://teammatch-backend.onrender.com/getLoggedInUser", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
