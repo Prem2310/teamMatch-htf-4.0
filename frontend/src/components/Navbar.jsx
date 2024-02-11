@@ -3,8 +3,30 @@ import logo from "../assets/logo.png";
 import { useEffect, useState } from "react";
 
 const Navbar = () => {
+  const [currUser, setCurrUser] = useState({});
 
-    const [currUser, setCurrUser] = useState({});
+  useEffect(() => {
+    fetch("http://localhost:5000/getLoggedInUser", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("LOGIN_INFO"))
+          .split("=")[1],
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setCurrUser(data.user);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
     useEffect(() => {
         fetch("http://localhost:5000/getLoggedInUser", {
@@ -73,7 +95,7 @@ const Navbar = () => {
                 <hr className="dark:text-black-900" />
             </div>
         </div>
-    );
+  );
 };
 
 export default Navbar;

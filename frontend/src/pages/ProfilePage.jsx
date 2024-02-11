@@ -5,108 +5,113 @@ import TeamDetails from "../components/TeamDetails";
 import AddSkills from "../components/AddSkills";
 import { useNavigate } from "react-router-dom";
 
-export default function ProfilePage(){
-    const [showForm, setShowForm] = useState(false);
+export default function ProfilePage() {
+  const [showForm, setShowForm] = useState(false);
 
+  const [updatedDetails, setUpdatedDetails] = useState({
+    fullName: "",
+    description: "",
+    image: "",
+  });
+  const [reader, setReader] = useState();
 
-    const [updatedDetails, setUpdatedDetails] = useState({fullName: "", description: "",image: ""});
-    const [reader,setReader]=useState()
+  const [hackathon, setHackathon] = useState({
+    name: "",
+    website: "",
+    venue: "",
+    teamSize: "",
+  });
 
-    const [hackathon, setHackathon] = useState({
-        name: "",
-        website: "",
-        venue: "",
-        teamSize: "",
-    });
+  const [currUser, setCurrUser] = useState({});
 
-    const [currUser, setCurrUser] = useState({})
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  const handleInputChange = (event) => {
+    setHackathon({ ...hackathon, [event.target.name]: event.target.value });
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(hackathon); // You can replace this with your own logic to handle the form submission
+  };
 
-    const handleInputChange = (event) => {
-        setHackathon({ ...hackathon, [event.target.name]: event.target.value });
+  useEffect(() => {
+    // Fetch the user's details
+    fetch("http://localhost:5000/getLoggedInUser", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("LOGIN_INFO"))
+          .split("=")[1],
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setCurrUser(data.user);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    setReader(new FileReader());
+  }, []);
+
+  const saveDetails = () => {
+    console.log(updatedDetails, "updatedDetails");
+    fetch("http://localhost:5000/updateUser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: currUser.username,
+        image: updatedDetails.image,
+        bio: updatedDetails.description,
+        fullName: updatedDetails.fullName,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        // navigate("/profile");
+        window.location.reload();
+
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const uploadImage = (e) => {
+    reader.onload = (e) => {
+      setUpdatedDetails({ ...updatedDetails, image: e.target.result });
     };
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log(hackathon); // You can replace this with your own logic to handle the form submission
-    };
+    // console.log(e.target.files[0],"file")
+    const f = e.target.files[0];
+    const check = reader.readAsDataURL(f);
+    console.log(check, "check");
+  };
+  const [edit, setEdit] = useState(false);
+  const editDetails = () => {
+    setEdit(!edit);
 
-    useEffect(() => {
-        // Fetch the user's details
-        fetch("http://localhost:5000/getLoggedInUser", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: document.cookie.split("; ").find((row) => row.startsWith("LOGIN_INFO")).split("=")[1],
-            },
-        })
-        .then((res) => {
-            return res.json();
-        })
-        .then((data) => {
-            setCurrUser(data.user);
-            console.log(data);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+    // You can replace this with your own logic to handle the form submission
+    console.log(edit, "Edit details");
+  };
 
-        setReader(new FileReader());
+  const logout = () => {
+    document.cookie =
+      "LOGIN_INFO=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    navigate("/login");
+  };
 
-        
-    },[])
-
-    const saveDetails = () => {
-        console.log(updatedDetails,"updatedDetails")
-        fetch("http://localhost:5000/updateUser", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username: currUser.username,
-                image: updatedDetails.image,    
-                bio: updatedDetails.description,
-                fullName: updatedDetails.fullName,
-            }),
-        })
-        .then((res) => {
-            return res.json();
-        })
-        .then((data) => {
-            // navigate("/profile");
-            window.location.reload();
-
-            console.log(data);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }
-
-    const uploadImage=(e)=>{
-        reader.onload=(e)=>{
-            setUpdatedDetails({...updatedDetails,image:e.target.result})
-        }
-        // console.log(e.target.files[0],"file")
-        const f=e.target.files[0];
-        const check=reader.readAsDataURL(f);
-        console.log(check,"check")
-    }
-    const [edit, setEdit] = useState(false)
-    const editDetails = () => {
-        setEdit(!edit)
-
-        // You can replace this with your own logic to handle the form submission
-        console.log(edit,"Edit details");
-
-    }
-
-    const logout = () => {
-        document.cookie = "LOGIN_INFO=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        navigate("/login");
-    }
-
+//   return (
     const createHackathon = () => {
         fetch("http://localhost:5000/createHackathon", {
             method: "POST",
@@ -239,6 +244,6 @@ export default function ProfilePage(){
                 </div>
             </div>
         </div>
-    );
-};
 
+  );
+}
