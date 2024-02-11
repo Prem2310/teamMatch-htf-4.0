@@ -5,6 +5,9 @@ import Typist from "react-typist";
 import Vision from "../components/Vision";
 
 const Landing = () => {
+
+    
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* fix the navbar to the top */}
