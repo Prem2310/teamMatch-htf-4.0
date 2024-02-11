@@ -34,29 +34,27 @@ const Navbar = () => {
                     <img src={logo} alt="logo" className="h-6" />
                 </div>
                 <div className="flex">
-                    <a href="#home" className="ml-10 text-lg hover:text-gray-400">
+                    <a href="/home" className="ml-10 text-lg hover:text-gray-400">
                         Home
                     </a>
-                    <a href="#vision" className="ml-10 text-lg hover:text-gray-400">
+                    <a href="/vision" className="ml-10 text-lg hover:text-gray-400">
                         Vision
                     </a>
-                    <a href="#about" className="ml-10 text-lg hover:text-gray-400">
+                    <a href="/about" className="ml-10 text-lg hover:text-gray-400">
                         About Us
+                    </a>
+                    <a href="/searchUser" className="ml-10 text-lg hover:text-gray-400">
+                        Peoples
                     </a>
                 </div>
                 <div className="flex">
                     {
                         currUser.username &&
-                        <Link to="/dashboard" className="ml-10 text-lg hover:text-gray-400">
-                            Dashboard
+                        <Link to="/profile" className="ml-10 text-lg hover:text-gray-400">
+                        {currUser.username}
                         </Link>
                     }
-                    {
-                        !currUser.username &&
-                        <Link to="/signup" className="ml-10 text-lg hover:text-gray-400">
-                            Sign Up
-                        </Link>
-                    }
+                    
                     {
                         !currUser.username &&
                         <div>

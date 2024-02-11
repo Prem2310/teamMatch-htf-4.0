@@ -107,6 +107,29 @@ export default function ProfilePage(){
         navigate("/login");
     }
 
+    const createHackathon = () => {
+        fetch("http://localhost:5000/createHackathon", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username: currUser.username,
+                name: hackathon.name,
+                link: hackathon.website,
+            }),
+        })
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            console.log(data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
+
     return (
         <div>
             <Navbar />
@@ -128,9 +151,7 @@ export default function ProfilePage(){
                         />
                     }
                     </div>
-                    {
-                        currUser.fullName ? <h1 className="text-3xl font-bold tracking-wide">{currUser.fullName}</h1> : <h1 className="text-3xl font-bold tracking-wide">Update Name...</h1>
-                    }
+                    <h1 className="text-3xl font-bold tracking-wide">{currUser.fullName}</h1> 
                     <p className="mt-2 text-lg">{currUser.email}</p>
                     {
                         currUser.bio ? <p className="mt-2 text-lg">{currUser.bio}</p> : <p className="mt-2 text-lg">Update Bio...</p>
@@ -152,7 +173,7 @@ export default function ProfilePage(){
                 </div>
 
                 <div className="mt-10 rounded-xl w-2/3 mx-10">
-                    <AddSkills />
+                    <AddSkills user={currUser}/>
                     {/* New hackathon section */}
                     <div className="mt-4">
                         <button
@@ -179,25 +200,10 @@ export default function ProfilePage(){
                                     onChange={handleInputChange}
                                     className="border-2 border-black rounded-xl p-2 w-full mb-2"
                                 />
-                                <input
-                                    type="text"
-                                    name="venue"
-                                    placeholder="Venue"
-                                    value={hackathon.venue}
-                                    onChange={handleInputChange}
-                                    className="border-2 border-black rounded-xl p-2 w-full mb-2"
-                                />
-                                <input
-                                    type="number"
-                                    name="teamSize"
-                                    placeholder="Number of members per team"
-                                    value={hackathon.teamSize}
-                                    onChange={handleInputChange}
-                                    className="border-2 border-black rounded-xl p-2 w-full mb-2"
-                                />
                                 <button
                                     type="submit"
                                     className="bg-blue-500 hover:bg-blue-700 text-white rounded-xl p-2 px-3 mt-2"
+                                    onClick={createHackathon}
                                 >
                                     Submit Hackathon
                                 </button>
