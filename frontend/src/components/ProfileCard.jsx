@@ -3,12 +3,15 @@ import ProfilePic from "../assets/pfp.png";
 import { FiUserPlus } from "react-icons/fi";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 import { CiTwitter } from "react-icons/ci";
+import { FiMessageCircle } from "react-icons/fi";
 
 // ... (import statements remain the same)
 
 const ProfileCard = ({ user,currUser }) => {
 
     const [currSelectedUser,setCurrSelectedUser] = useState("")
+    console.log(user,"userThisss")
+    console.log(currUser,"currUserThisss")
 
     const addFriend = (e) => {   
         const currElement = e.target.parentElement.parentElement.parentElement.children[0].innerText
