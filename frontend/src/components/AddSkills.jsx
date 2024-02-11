@@ -20,7 +20,7 @@ const AddSkills = (props) => {
                         Authorization: document.cookie.split("; ").find((row) => row.startsWith("LOGIN_INFO")).split("=")[1],
                     },
                     body: JSON.stringify({
-                        username: currUser.username,
+                        username: props.user.username,
                         skill: skill,
                     }),
                 })

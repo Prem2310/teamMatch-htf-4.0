@@ -156,7 +156,7 @@ export default function ProfilePage() {
                         />
                     }
                     </div>
-                    <h1 className="text-3xl font-bold tracking-wide">{currUser.fullName}</h1> 
+                    <h1 className="text-3xl font-bold tracking-wide mt-10">{currUser.fullName}</h1> 
                     <p className="mt-2 text-lg">{currUser.email}</p>
                     {
                         currUser.bio ? <p className="mt-2 text-lg">{currUser.bio}</p> : <p className="mt-2 text-lg">Update Bio...</p>

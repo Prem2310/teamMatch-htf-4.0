@@ -6,48 +6,35 @@ const Navbar = () => {
   const [currUser, setCurrUser] = useState({});
 
   useEffect(() => {
-    fetch("http://localhost:5000/getLoggedInUser", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: document.cookie
-          .split("; ")
-          .find((row) => row.startsWith("LOGIN_INFO"))
-          .split("=")[1],
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setCurrUser(data.user);
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    try{
+        const jwt = document.cookie.split("; ").find((row) => row.startsWith("LOGIN_INFO")).split("=")[1];
 
-    useEffect(() => {
         fetch("http://localhost:5000/getLoggedInUser", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: document.cookie.split("; ").find((row) => row.startsWith("LOGIN_INFO")).split("=")[1],
-            },
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("LOGIN_INFO"))
+            .split("=")[1],
+        },
         })
-            .then((res) => {
-                return res.json();
-            })
-            .then((data) => {
-                setCurrUser(data.user);
-                console.log(data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            setCurrUser(data.user);
+            console.log(data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
     }
-        , []);
+    catch(err){
+        console.log(err);
+    }
+    }, []);
+
 
     return (
         <div className="bg-white">
@@ -56,7 +43,7 @@ const Navbar = () => {
                     <img src={logo} alt="logo" className="h-6" />
                 </div>
                 <div className="flex">
-                    <a href="/home" className="ml-10 text-lg hover:text-gray-400">
+                    <a href="/" className="ml-10 text-lg hover:text-gray-400">
                         Home
                     </a>
                     <a href="/vision" className="ml-10 text-lg hover:text-gray-400">
@@ -67,6 +54,9 @@ const Navbar = () => {
                     </a>
                     <a href="/searchUser" className="ml-10 text-lg hover:text-gray-400">
                         Peoples
+                    </a>
+                    <a href="/chats" className="ml-10 text-lg hover:text-gray-400">
+                        Chat Room
                     </a>
                 </div>
                 <div className="flex">
