@@ -72,15 +72,15 @@ const AddSkills = (props) => {
         <div>
             <div className="flex flex-wrap gap-2 mb-4">
                 {
-                    props.user && currUser.skills.map((skill, index) => (
-                   <div
-                       key={index}
-                       onClick={() => removeSkill(skill)}
-                       className="p-2 border-2 border-black rounded-xl w-fit cursor-pointer"
-                   >
-                       {skill}
-                   </div>
-               ))
+            //         props.user && currUser.skills.map((skill, index) => (
+            //        <div
+            //            key={index}
+            //            onClick={() => removeSkill(skill)}
+            //            className="p-2 border-2 border-black rounded-xl w-fit cursor-pointer"
+            //        >
+            //            {skill}
+            //        </div>
+            //    ))
             }
             </div>
             <form className="flex flex-col gap-5">
