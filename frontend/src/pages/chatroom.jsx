@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from 'react'
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from 'react-router-dom'
 
-const socket = io('http://localhost:3000')
+const socket = io('https://web-socket-server-02l2.onrender.com/')
 
 function App() {
     const [message, setMessage] = useState("")
