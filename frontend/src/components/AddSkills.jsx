@@ -40,26 +40,6 @@ const AddSkills = (props) => {
         }
     };
 
-    // useEffect(() => {
-    //     fetch("http://localhost:5000/getLoggedInUser", {
-    //         method: "GET",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             Authorization: document.cookie.split("; ").find((row) => row.startsWith("LOGIN_INFO")).split("=")[1],
-    //         },
-    //     })
-    //         .then((res) => {
-    //             return res.json();
-    //         })
-    //         .then((data) => {
-    //             setCurrUser(data.user);
-    //             console.log(data);
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         });
-    // },[])
-    
     const [showcaseSkills, setShowcaseSkills] = useState(false);
 
     const showSkills = (e) => {
