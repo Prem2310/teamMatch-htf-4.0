@@ -8,8 +8,8 @@ const Navbar = () => {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "35px", // Adjust the height and width according to your logo size
-    width: "35px",
+    height: "2rem", // Adjust the height and width according to your logo size
+    width: "2rem",
     animation: "rotation 1.5s linear infinite", // Adjust animation duration as needed
   };
   const keyframes = `
