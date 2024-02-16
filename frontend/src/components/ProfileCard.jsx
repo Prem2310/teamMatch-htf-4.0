@@ -31,6 +31,7 @@ const ProfileCard = ({ user,currUser }) => {
         .then(response => response.json())
         .then(data => {
             console.log(data);
+            alert("friend added")
         })
         .catch((error) => {
             console.error('Error:', error);

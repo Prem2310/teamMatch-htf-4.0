@@ -199,7 +199,7 @@ function App() {
                     </Link>
                 </div>
                 <hr className='h-0 border-t-[1px] border-opacity-50 border-black'/>
-                <div className='h-[91%] '>
+                <div className='h-[85%] '>
                     <div className='overflow-scroll flex flex-col gap-1 h-full p-2' ref={msg}>
                         {
                             chats.map((chat,i) => {
@@ -225,7 +225,7 @@ function App() {
                         }
                     </div>
                     <div className='w-full'>
-                        <div className='fixed bottom-[8px] rounded-md h-fit bg-[#595959] w-[88.1%] p-2'>
+                        <div className='fixed bottom-[8px] rounded-md h-fit bg-[#595959] w-[86.6%] p-2'>
                             <input type="text" placeholder='Message...' className='border-2 p-2 m-2 border-black rounded-xl w-10/12' 
                             onChange={(e) => setMessage(e.target.value)} onKeyPress={handleKeyPress}/>
                             <button onClick={sendMessage} className='bg-blue-300 hover:bg-blue-600 p-3 rounded-xl w-1/12'>Send</button>
