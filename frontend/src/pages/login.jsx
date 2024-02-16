@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import login_graphics from "../assets/login_graphics.png";
+import { RotatingLines } from "react-loader-spinner";
 
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -10,14 +11,20 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const [loader, setLoader] = useState(false);
+
   async function login() {
-    const response = await fetch("https://teammatch-backend.onrender.com/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    })
+    setLoader(true);
+    const response = await fetch(
+      "https://teammatch-backend.onrender.com/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.token) {
@@ -40,6 +47,19 @@ export default function Login() {
 
   return (
     <div>
+      <div className="absolute">
+        <RotatingLines
+          visible={loader}
+          height="96"
+          width="96"
+          color="grey"
+          strokeWidth="5"
+          animationDuration="0.75"
+          ariaLabel="rotating-lines-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
       <div className="flex gap-10 ">
         <div className="w-1/2 h-full min-h-screen px-7 flex flex-col mt-20">
           <h1 className="text-5xl font-bold text-black-700 mb-5 tracking-wide italic ">
