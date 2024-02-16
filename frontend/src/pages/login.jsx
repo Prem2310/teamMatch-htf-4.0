@@ -13,60 +13,56 @@ export default function Login() {
 
   const [loader, setLoader] = useState(false);
 
+  //onkeypress function
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      login();
+    }
+  };
   async function login() {
     setLoader(true);
-    const response = await fetch(
-      "https://teammatch-backend.onrender.com/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.token) {
-          document.cookie = `LOGIN_INFO=${data.token}`;
-          const jwt = document.cookie
-            .split("; ")
-            .find((row) => row.startsWith("LOGIN_INFO"))
-            .split("=")[1];
-          if (jwt) {
-            navigate("/profile");
-          }
-        } else {
-          alert("invalid user details"); // Show the error message returned from the server
+    try {
+      const response = await fetch(
+        "https://teammatch-backend.onrender.com/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
         }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+      );
+
+      const data = await response.json();
+
+      if (data.token) {
+        document.cookie = `LOGIN_INFO=${data.token}`;
+        const jwt = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("LOGIN_INFO"))
+          .split("=")[1];
+        if (jwt) {
+          navigate("/profile");
+        }
+      } else {
+        alert("invalid user details"); // Show the error message returned from the server
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setLoader(false);
+    }
   }
 
   return (
     <div>
-      <div className="absolute">
-        <RotatingLines
-          visible={loader}
-          height="96"
-          width="96"
-          color="grey"
-          strokeWidth="5"
-          animationDuration="0.75"
-          ariaLabel="rotating-lines-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-        />
-      </div>
       <div className="flex gap-10 ">
         <div className="w-1/2 h-full min-h-screen px-7 flex flex-col mt-20">
           <h1 className="text-5xl font-bold text-black-700 mb-5 tracking-wide italic ">
             Match Maker OR What
           </h1>
           <h1 className="text-5xl font-light text-black-700  tracking-wide">
-            Let's find your team
+            Lets find your team
           </h1>
           <img src={login_graphics} alt="login" className="w-96 m-auto mt-10" />
         </div>
@@ -92,6 +88,7 @@ export default function Login() {
               value={password}
               className="border-2 border-black rounded-xl p-2 w-full mb-5"
               onChange={(e) => setPassword(e.target.value)}
+              onKeyPress={handleKeyPress}
             />
 
             <p className="text-black-700 text-sm mb-5">
@@ -100,6 +97,19 @@ export default function Login() {
                 Sign Up
               </Link>
             </p>
+            <div>
+              <RotatingLines
+                visible={loader}
+                height="64"
+                width="64"
+                color="grey"
+                strokeWidth="5"
+                animationDuration="0.75"
+                ariaLabel="rotating-lines-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            </div>
             <button
               onClick={login}
               className="bg-black text-white p-2 rounded-full w-full mt-5"
