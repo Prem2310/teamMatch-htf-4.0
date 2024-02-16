@@ -1,5 +1,3 @@
-
-import React from "react";
 import ProfilePic from "../assets/pfp.png";
 
 const Profile = () => {

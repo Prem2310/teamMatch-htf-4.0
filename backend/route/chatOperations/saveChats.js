@@ -6,12 +6,19 @@ const ChatRooms = require("../../models/chatRooms");
 
 router.post("/", async (req, res) => {
     try {
-        // const { user1, user2, roomCode, messages } = req.body;
+        const { user1, user2, roomCode, message } = req.body;
+        console.log(roomCode,"roomString")
+        const msg = await ChatRooms.find({roomCode : roomCode})
+        console.log(msg,"msg")
+        if (!msg) {
+            res.status(400).json({ error: "Room not found" });
+        }
+        else{
+            msg[0].messages.push({sender: user1, message: message});
+            await msg[0].save();
+            res.status(200).json({ message: "Message saved", msg : msg });
+        }
 
-        // const roomString = username < friend ? username + friend : friend + username;
-        // const chat = new ChatRooms({ user1, user2, roomCode, messages });
-        // await chat.save();
-        res.status(200).json("working");
     } catch (error) {
         console.log(error);
         res.status(400).json({ error: "server side error" });

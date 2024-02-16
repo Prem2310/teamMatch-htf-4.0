@@ -6,19 +6,24 @@ const Hackathon = require("../../models/hackathons");
 
 router.post("/", async (req, res) => {
     try {
-        const { title, link, username } = req.body;
-        const hackathon = new Hackathon({
-            title,
-            link,
-            username
-        });
-        await hackathon.save();
-        res.status(200).json({ message: "Hackathon created" });
+        const { name, link, username } = req.body;
+        const getAllHackathons = await Hackathon.find({ name: name });
+        if (getAllHackathons.length > 0) {
+            return res.status(400).json({ error: "Hackathon already exists" });
+        }
+        else {
+            const hackathon = new Hackathon({
+                name:name,
+                link:link,
+                interestedPeoples:username,
+            });
+            await hackathon.save();
+            res.status(200).json({ message: "Hackathon created" });
+        }
     } catch (error) {
         console.log(error);
         res.status(400).json({ error: "server side error" });
     }
-}
-);
+});
 
 module.exports = router;

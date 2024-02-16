@@ -1,26 +1,46 @@
 import io from 'socket.io-client'
 import { useEffect, useState, useRef } from 'react'
+import { FaArrowRightLong } from "react-icons/fa6";
+import { Link } from 'react-router-dom'
+import Navbar from '../components/Navbar'
 
-const socket = io('http://localhost:3000')
+const socket = io('https://web-socket-server-02l2.onrender.com/')
 
 function App() {
     const [message, setMessage] = useState("")
     const [messageRecieved, setMessageRecieved] = useState("")
-    const [roomCode, setRoomCode] = useState("devvrat")
+    const [roomCode, setRoomCode] = useState("")
     const [currUser, setCurrUser] = useState({})
-
+    const [chatFriend, setChatFriend] = useState("")
+    const [chats, setChats] = useState([])
     const [friends, setFriends] = useState([])
 
 
     const msg = useRef()
 
-    // const saveSentMessage = (message,username) => {
-    //     fetch('http://localhost:5000/chatOperations/room', {
+    const saveChats = (user1, user2) => {
+        fetch('https://teammatch-backend.onrender.com/saveChats', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ user1, user2, roomCode, message })
+        }).then((res) => {
+            return res.json()
+        }
+        ).then((data) => {
+            console.log(data)
+        }
+        ).catch((err) => {
+            console.log(err)
+        })
+
+    }
 
 
     const sendMessage = () => {
 
-        // saveSentMessage(message,currUser.username)
+        saveChats(currUser.username, chatFriend)
 
         socket.emit("sendMessage", { message, roomCode})
         const container = document.createElement('div')
@@ -28,20 +48,20 @@ function App() {
         
         const send = document.createElement('h1')
         send.innerHTML = message
-        send.className = 'bg-green-500 p-2 rounded-2xl rounded-br-none max-w-4/6 text-pretty '
+        send.className = 'bg-[#595959] p-2 rounded-xl max-w-4/6 text-pretty text-white '
  
         container.appendChild(send)
         msg.current.appendChild(container)
         console.log("Message sent")
     }
     
-    const joinRoom = () => {
+    const joinRoom = (roomCode) => {
         socket.emit("joinRoom", {roomCode : roomCode})
         console.log("Room joined",roomCode)
     }
 
     const getUser = (jwt) => {
-        fetch('http://localhost:5000/getLoggedInUser', {
+        fetch('https://teammatch-backend.onrender.com/getLoggedInUser', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -53,27 +73,49 @@ function App() {
         ).then((data) => {
             setCurrUser(data.user)
             setFriends(data.user.friends)
+            setChatFriend(data.user.friends[0])
             console.log(data.user,"user")
             console.log(data.user.friends,"friends")
         }
         ).catch((err) => {
             console.log(err)
+        })
+    }
+
+    const getChats = (roomCode)=>{
+        console.log(roomCode,"inside getChats roomcod")
+        fetch('https://teammatch-backend.onrender.com/getChats/' + roomCode, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then((res) => {
+            return res.json()
         }
-        )
+        ).then((data) => {
+            setChats(data)
+            console.log(data,"chats")
+        }
+        ).catch((err) => {
+            console.log(err)
+        })
     }
     
-
-
     useEffect(() => {
-        joinRoom()
+        joinRoom(roomCode)
+
         socket.on("recieveMessage", (data) => {
+
+            saveChats(chatFriend, currUser.username)
+
             setMessageRecieved(data.message)
             const container = document.createElement('div')
             container.className = 'flex justify-start max-w-4/6 '
 
+
             const recieve = document.createElement('h1')
             recieve.innerHTML = data.message
-            recieve.className = 'bg-blue-500 p-2 rounded-2xl rounded-bl-none text-wrap'
+            recieve.className = 'bg-[#595959] text-white p-2 rounded-xl text-wrap'
 
             container.appendChild(recieve)
             msg.current.appendChild(container)
@@ -85,65 +127,118 @@ function App() {
 
         getUser(jwt)
 
-
-
-
     }, [socket])
 
     const selectedUser = (e) => {
         e.preventDefault()
         const roomString = currUser.username < e.target.innerHTML ? currUser.username + e.target.innerHTML : e.target.innerHTML + currUser.username;
+        console.log(roomString,"roomtString")
+        
         setRoomCode(roomString)
-        joinRoom()
+        joinRoom(roomString)
+
+        setChatFriend(e.target.innerHTML)
+        getChats(roomString)
+
         console.log(roomString,"roomString")
         console.log(e.target.innerHTML)
         console.log("Selected")
     }
 
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    }
 
-  return (
-        <div className='p-2 bg-green-100 h-screen flex'>
-            <div className='flex flex-col h-full bg-blue-400 w-fit'>
+    return (
+        <div>
+
+        <div className='p-2 bg-black h-screen flex gap-2'>
+            {/* <Navbar></Navbar> */}
+            {
+                friends.length === 0 ? <div className='w-full h-full flex justify-center items-center '>
+                    <Link to="/searchUser">
+                        <div className='flex items-center gap-6 hover:bg-gray-300 cursor-pointer bg-white p-2 px-4 rounded-full text-2xl font-semibold'>
+                            Find Friends
+                            
+                            <FaArrowRightLong ></FaArrowRightLong>
+                        </div>
+                    </Link>
+                    </div> : 
+                <>
+            <div className='flex flex-col h-full w-fit rounded-md bg-[#595959] text-white text-opacity-90 opacity-85'>
                 {
                     friends.map((friend) => {
                         return (
-                            <div key={friend} className='p-2 bg-red-400 m-2 rounded-2xl px-10 hover:bg-red-600 cursor-pointer' onClick={selectedUser}>
-                                {friend}
+                            <div key={friend} >
+                                <div className='flex justify-between items-center hover:-translate-y-[2px] hover:translate-x-[2px] cursor-pointer'>
+                                    <div className='pl-2 m-2 rounded-2xl px-6 hover:bg-gray-400 cursor-pointer font-bricolage uppercase font-medium text-xl' onClick={selectedUser}>
+                                        {friend}
+                                        
+                                    </div>
+                                    <div className='pr-2'>
+                                    <FaArrowRightLong></FaArrowRightLong>
+                                    </div>
+                                </div>
+                                <hr className='h-0 border-t-2-[1px] border-black  border-opacity-40' />
                             </div>
                         )
                     })
                 }
             </div>
-            <div>
-                <input type="text" placeholder='Message...' className='border-2 p-2 m-2 border-black rounded-xl' onChange={
-                    (e) => {
-                        setMessage(e.target.value)
+            <div className='w-full rounded-md bg-gray-200 text-black'>
+                <div className='w-full p-2 px-3 uppercase font-medium flex justify-between'>
+                    {
+                        chatFriend
                     }
-                }/>
-                <button onClick={sendMessage} className='bg-blue-300 hover:bg-blue-600 p-3 rounded-xl'>Send</button>
-                <h1>Message</h1>
-                <div className='flex flex-col gap-1' ref={msg}>
-                    
+                    <Link to="/">
+                    <div >
+                        Home
+                    </div>
+                    </Link>
+                </div>
+                <hr className='h-0 border-t-[1px] border-opacity-50 border-black'/>
+                <div className='h-[85%] '>
+                    <div className='overflow-scroll flex flex-col gap-1 h-full p-2' ref={msg}>
+                        {
+                            chats.map((chat,i) => {
+                                return (
+                                    <div key={i}>
+                                    {
+                                        chat.sender === currUser.username ? 
+                                        <div className='flex justify-end max-w-4/6'>
+                                            <div className='bg-[#595959] p-2 rounded-xl max-w-4/6 text-pretty text-white '>
+                                                {chat.message}
+                                            </div>
+                                        </div>
+                                            : 
+                                        <div className='flex justify-start max-w-4/6'>
+                                            <div className='bg-[#595959] p-2 rounded-xl max-w-4/6 text-pretty text-white '>
+                                                {chat.message}
+                                            </div>
+                                        </div>
+                                    }
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                    <div className='w-full'>
+                        <div className='fixed bottom-[8px] rounded-md h-fit bg-[#595959] w-[86.6%] p-2'>
+                            <input type="text" placeholder='Message...' className='border-2 p-2 m-2 border-black rounded-xl w-10/12' 
+                            onChange={(e) => setMessage(e.target.value)} onKeyPress={handleKeyPress}/>
+                            <button onClick={sendMessage} className='bg-blue-300 hover:bg-blue-600 p-3 rounded-xl w-1/12'>Send</button>
+                        </div>
+                    </div>
                 </div>
             </div>
+            </>
+
+            }
         </div>
-        // <div className='m-auto w-screen flex justify-center items-center h-screen'>
-        //     <div className='m-auto w-1/2 border-2 border-black rounded-xl p-4'>
-        //         <h1>Chatting</h1>
 
-        //         <input type="text" placeholder='Room Code...' className='border-2 rounded-xl border-black p-2 m-2' 
-        //         onChange={
-        //             (e) => {
-        //                 setRoomCode(e.target.value)
-        //             }
-        //         }/>
-        //         <button className='bg-blue-300 hover:bg-blue-600 p-3 rounded-xl'
-        //         onClick={joinRoom}>Join</button>
-        //         <br />
-
-
-        //     </div>
-        // </div>
+        </div>
     )
 }
 
