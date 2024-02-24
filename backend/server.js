@@ -36,8 +36,6 @@ const getChats = require("./route/chatOperations/getChats");
 const updateHackathons = require("./route/hackathons/updateHackathons");
 const auth = require("./route/auth");
 
-app.use("/signup", signup);
-app.use("/login", login);
 app.use("/allUsers", allUsers);
 app.use("/addFriend", addFriend);
 app.use("/addSkills", addSkills);
