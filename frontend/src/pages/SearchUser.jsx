@@ -41,7 +41,7 @@ export default function Dashboard() {
                 // console.log(data, "hackathons");
             });
 
-        fetch("https://teammatch-backend.onrender.com/userCRUD/allUsers", {
+        fetch("https://teammatch-backend.onrender.com/userCRUD/getUsers", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
