@@ -13,12 +13,8 @@ router.post("/", async (req, res) => {
         const username = req.body.username;
         const friendRequest = req.body.friend;
 
-        console.log(username, friendRequest,"username and friend");
-
         const user = await AllUsers.findOne({ username: username });
         const friend = await AllUsers.findOne({ username: friendRequest });
-        // sort user strign and friend string alphabetically and create a new string using them
-        // code 
         const roomString = username < friendRequest ? username + friendRequest : friendRequest + username;
         
         if (friend) {

@@ -6,7 +6,6 @@ router.get("/", async (req, res) => {
     try{
         const users = await AllUsers.find()
         console.log(users)
-        // const result=await Image.find({username:req.query.username})
         res.status(200).json(users)
     }
     catch(error){
