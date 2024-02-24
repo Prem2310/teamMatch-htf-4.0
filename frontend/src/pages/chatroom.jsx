@@ -123,6 +123,8 @@ function App() {
 
             container.appendChild(recieve);
             msg.current.appendChild(container);
+            scrollTop.current.scrollIntoView({ behavior: "smooth" });
+
         });
 
         const jwt = document.cookie

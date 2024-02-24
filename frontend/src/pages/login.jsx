@@ -23,7 +23,7 @@ export default function Login() {
     setLoader(true);
     try {
       const response = await fetch(
-        "https://teammatch-backend.onrender.com/login",
+        "https://teammatch-backend.onrender.com/auth/login",
         {
           method: "POST",
           headers: {

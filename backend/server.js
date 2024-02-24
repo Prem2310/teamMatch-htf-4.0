@@ -34,6 +34,7 @@ const getRoomCode = require("./route/chatOperations/getRoomCode");
 const saveChats = require("./route/chatOperations/saveChats");
 const getChats = require("./route/chatOperations/getChats");
 const updateHackathons = require("./route/hackathons/updateHackathons");
+const auth = require("./route/auth");
 
 app.use("/signup", signup);
 app.use("/login", login);
@@ -51,28 +52,7 @@ app.use("/saveChats", saveChats);
 app.use("/getChats", getChats);
 app.use("/updateHackathons", updateHackathons);
 
-// const io = new Server(server, {
-//   cors: {
-//     origin: "*",
-//   },
-// });
-
-// io.on("connection", (socket) => {
-//   console.log("a user connected:", socket.id);
-
-//   socket.on("joinRoom", (data) => {
-//     socket.join(data.roomCode);
-//     console.log("joined room", data.roomCode);
-//   });
-
-//   socket.on("sendMessage", (data) => {
-//     socket.to(data.roomCode).emit("recieveMessage", data);
-//   });
-// });
-
-// server.listen(3000, async () => {
-//   console.log("Server is running on port 3000");
-// });
+app.use("/auth", auth);
 
 const start = async () => {
   try {
