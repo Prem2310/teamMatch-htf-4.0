@@ -13,7 +13,7 @@ const AddSkills = (props) => {
             event.preventDefault();
             if (skill && !skills.includes(skill)) {
                 setSkills([...skills, skill]);
-                fetch("https://teammatch-backend.onrender.com/addSkills", {
+                fetch("https://teammatch-backend.onrender.com/userCRUD/addSkills", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

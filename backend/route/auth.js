@@ -13,6 +13,30 @@ const createToken = (id) => {
   });
 };
 
+
+router.get("/getLoggedInUser",async (req,res)=>{
+    const token=req.get("Authorization")
+    console.log(token)
+    if (token){
+        jwt.verify(token,process.env.JWT_SECRET,async (err,decodedToken)=>{
+            if (err){
+                res.status(200).json({error:err,message:"Server Error"})
+                return 
+            }
+            else{
+                const user=await User.findById(decodedToken.id)
+                res.status(200).json({user:user})
+                return
+            }
+        })
+        return 
+    }
+    else{
+        res.status(400).json({error:"No Token Found"})
+        return 
+    }
+})
+
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email: email });

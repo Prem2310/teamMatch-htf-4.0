@@ -36,7 +36,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     // Fetch the user's details
-    fetch("https://teammatch-backend.onrender.com/getLoggedInUser", {
+    fetch("https://teammatch-backend.onrender.com/auth/getLoggedInUser", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -62,7 +62,7 @@ export default function ProfilePage() {
 
   const saveDetails = () => {
     console.log(updatedDetails, "updatedDetails");
-    fetch("https://teammatch-backend.onrender.com/updateUser", {
+    fetch("https://teammatch-backend.onrender.com/userCRUD/updateUser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -113,7 +113,7 @@ export default function ProfilePage() {
 
 //   return (
     const createHackathon = () => {
-        fetch("https://teammatch-backend.onrender.com/createHackathon", {
+        fetch("https://teammatch-backend.onrender.com/hackathonsCRUD/createHackathon", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

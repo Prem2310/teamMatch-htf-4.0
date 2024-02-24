@@ -30,7 +30,7 @@ const Navbar = () => {
         .find((row) => row.startsWith("LOGIN_INFO"))
         .split("=")[1];
 
-      fetch("https://teammatch-backend.onrender.com/getLoggedInUser", {
+      fetch("https://teammatch-backend.onrender.com/auth/getLoggedInUser", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
