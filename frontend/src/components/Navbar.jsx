@@ -76,6 +76,9 @@ const Navbar = () => {
           <a href="/chats" className="ml-10 text-lg hover:text-gray-400">
             Chat Room
           </a>
+          <a href="https://github.com/Devvrat1010/teamMatch-htf-4.0" className="ml-10 text-lg hover:text-gray-400">
+            Github
+          </a>
         </div>
         <div className="flex">
           {currUser.username && (
