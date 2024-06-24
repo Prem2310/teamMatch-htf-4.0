@@ -19,60 +19,15 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(express.json());
 
-const signup = require("./route/userOperation/signup");
-const login = require("./route/userOperation/login");
-const allUsers = require("./route/userOperation/getUsers");
-const addFriend = require("./route/userOperation/addFriend");
-const addSkills = require("./route/userOperation/addSkills");
-const updateUser = require("./route/userOperation/updateUser");
-const removeFriend = require("./route/userOperation/removeFriend");
-const getUserById = require("./route/userOperation/getUserById");
-const getLoggedInUser = require("./route/userOperation/getLoggedInUser");
-const createHackathon = require("./route/hackathons/createHackathon");
-const getAllHackathons = require("./route/hackathons/getAllHackathons");
-const getRoomCode = require("./route/chatOperations/getRoomCode");
-const saveChats = require("./route/chatOperations/saveChats");
-const getChats = require("./route/chatOperations/getChats");
-const updateHackathons = require("./route/hackathons/updateHackathons");
+const auth = require("./routes/auth");
+const userCRUD = require("./routes/userCRUD");
+const hackathonsCRUD = require("./routes/hackathonsCRUD");
+const chatCRUD = require("./routes/chatCRUD");
 
-app.use("/signup", signup);
-app.use("/login", login);
-app.use("/allUsers", allUsers);
-app.use("/addFriend", addFriend);
-app.use("/addSkills", addSkills);
-app.use("/updateUser", updateUser);
-app.use("/removeFriend", removeFriend);
-app.use("/getUserById", getUserById);
-app.use("/getLoggedInUser", getLoggedInUser);
-app.use("/createHackathon", createHackathon);
-app.use("/getAllHackathons", getAllHackathons);
-app.use("/getRoomCode", getRoomCode);
-app.use("/saveChats", saveChats);
-app.use("/getChats", getChats);
-app.use("/updateHackathons", updateHackathons);
-
-// const io = new Server(server, {
-//   cors: {
-//     origin: "*",
-//   },
-// });
-
-// io.on("connection", (socket) => {
-//   console.log("a user connected:", socket.id);
-
-//   socket.on("joinRoom", (data) => {
-//     socket.join(data.roomCode);
-//     console.log("joined room", data.roomCode);
-//   });
-
-//   socket.on("sendMessage", (data) => {
-//     socket.to(data.roomCode).emit("recieveMessage", data);
-//   });
-// });
-
-// server.listen(3000, async () => {
-//   console.log("Server is running on port 3000");
-// });
+app.use("/auth", auth);
+app.use("/userCRUD", userCRUD);
+app.use("/hackathonsCRUD", hackathonsCRUD);
+app.use("/chatCRUD", chatCRUD);
 
 const start = async () => {
   try {

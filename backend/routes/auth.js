@@ -1,17 +1,70 @@
 const express = require("express");
 const router = express.Router();
-const User = require('../../models/users')
-const bcrypt = require('bcrypt')
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const User = require("../models/users");
 const saltRounds = 10;
-const jwt = require('jsonwebtoken')
 
-const maxAge = 3 * 24 * 60 * 60
+const maxAge = 3 * 24 * 60 * 60;
 
 const createToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: maxAge
-    })
-}
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: maxAge,
+  });
+};
+
+
+router.get("/getLoggedInUser",async (req,res)=>{
+    const token=req.get("Authorization")
+    console.log(token)
+    if (token){
+        jwt.verify(token,process.env.JWT_SECRET,async (err,decodedToken)=>{
+            if (err){
+                res.status(200).json({error:err,message:"Server Error"})
+                return 
+            }
+            else{
+                const user=await User.findById(decodedToken.id)
+                res.status(200).json({user:user})
+                return
+            }
+        })
+        return 
+    }
+    else{
+        res.status(400).json({error:"No Token Found"})
+        return 
+    }
+})
+
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email: email });
+  if (user) {
+    const authorize = bcrypt.compareSync(password, user.password);
+    console.log(authorize);
+    if (authorize) {
+      const token = createToken(user._id);
+      res.status(200).json({ message: user, token: token });
+    } else {
+      res.status(400).json({ error: "Invalid credentials" });
+    }
+  } else {
+    res.status(400).json({ error: "Invalid credentials" });
+    return;
+  }
+  // try{
+  //     const user=await User.login(email,password)
+  //     const token = createToken(user._id)
+  //     res.cookie('jwt',token,{httpsOnly:true,maxAge:maxAge*1000})
+  //     .status(200)
+  //     .json({message:user._id,token:token})
+  // }
+  // catch(err){
+  //     res.status(400).json({error:err.message})
+  // }
+});
+
 
 const validate = async (data) => {
     const { username, email, password } = data
@@ -33,7 +86,7 @@ const validate = async (data) => {
     return true
 }
 
-router.post("/", async (req, res) => {
+router.post("/signup", async (req, res) => {
     try {
         const existingUser = await User.find()
         const check = await existingUser.filter((user) => {

@@ -62,6 +62,6 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 ## Contact
 
-For inquiries and support, please contact us at patelprem7736@gmail.com.
+For inquiries and support, contact us at patelprem7736@gmail.com.
 
 Thank you for choosing Match Maker! Let's revolutionize hackathons together.
